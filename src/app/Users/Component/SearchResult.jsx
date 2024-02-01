@@ -2,7 +2,7 @@
 import { Button, Flex, Space, Table } from 'antd'
 import React from 'react'
 import { UserDeleteOutlined ,MoreOutlined} from '@ant-design/icons';
-import ResultTable from '@/app/Component/ResultTable';
+import ResultTable from '../../Component/ResultTable';
 
 const columns = [
     {

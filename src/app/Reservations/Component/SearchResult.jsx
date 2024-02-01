@@ -32,35 +32,22 @@ const columns = [
         dataIndex: 'dueDate',
         key: 'dueDate',
       },
-      {
-        title: 'Staus',
-        dataIndex: 'status',
-        key: 'status',
-        render: (status) => (
-          <span>
-            {status.map((tag) => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
-              if (tag === 'borrowed') {
-                color = 'volcano';
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </span>
-        ),
-      },
+     
     {
       title: 'Action',
       dataIndex: '',
       key: 'x',
       render: () => (
         <Space size="large">
-        <Button type='primary' icon={<MoreOutlined /> } size='small'></Button>
+        <Button type='primary' icon={<MoreOutlined /> } size='small' shape='round'>More</Button>
         </Space>
       )
+    },
+    {
+      title: 'Staus',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => (status=="borrowed"?<Button type='primary'  size='small' shape='round'>Borrowed</Button>:(status=="overdue"?<Button type='danger' size='small' shape='round'>Overdue</Button>:<Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),
     },
   
   ];
