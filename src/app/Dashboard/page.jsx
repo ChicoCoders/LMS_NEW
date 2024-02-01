@@ -1,19 +1,21 @@
 import React from 'react'
 import Navigations from '../Component/Navigations';
 import ContentBox from '../Component/ContentBox';
-import { HomeOutlined } from '@ant-design/icons';
+import { HomeOutlined,DashboardOutlined  } from '@ant-design/icons';
 import Dashboard from './Component/Dashboard';
 
 const PageRoot = [
   {
+   
     href: '',
     title: <HomeOutlined />,
   },
   {
+    
     href: '',
     title: (
       <>
-        <HomeOutlined />
+        <DashboardOutlined />
         <span>Dashboard</span>
       </>
     ),
@@ -22,9 +24,11 @@ const PageRoot = [
 function page() {
   return (
     <div>
-      <Navigations>
+      {console.log(PageRoot)}
+      <Navigations selectedItem='dashboard'>
         <ContentBox pageroot={PageRoot} >
           <Dashboard />
+
         </ContentBox>
       </Navigations>
     </div>

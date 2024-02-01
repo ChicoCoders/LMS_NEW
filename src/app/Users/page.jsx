@@ -61,7 +61,7 @@ function page() {
     return (
         <div>
             <div>
-                <Navigations>
+                <Navigations selectedItem="users">
                     <ContentBox pageroot={PageRoot}>
                        <SearchResult data={data}/>
                     </ContentBox>

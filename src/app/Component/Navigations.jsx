@@ -1,14 +1,16 @@
 'use client'
 import React from 'react';
-import { UserOutlined, MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { UserOutlined, MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined,DashboardOutlined  } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
+import Link from 'next/link';
+
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const items = [{
   key: '1',
   icon: React.createElement(MessageOutlined),
-  label: `Notifications`,
+  label:'Notifications',
 },
 {
   key: '2',
@@ -17,40 +19,42 @@ const items = [{
 }
 ];
 
+
+
 const sideitems = [{
-  key: '1',
-  icon: React.createElement(MessageOutlined),
-  label: `Dashboard`,
+  key: 'dashboard',
+  icon: React.createElement(DashboardOutlined ),
+  label: <Link href="/Dashboard">Dashboard</Link>,
 },
 {
-  key: '2',
+  key: 'resources',
   icon: React.createElement(ReadOutlined),
-  label: `Resources`,
+  label: <Link href="/Resources">Resources</Link>,
 },
 {
-  key: '3',
+  key: 'users',
   icon: React.createElement(UserOutlined),
-  label: `Users`,
+  label: <Link href="/Users">Users</Link>,
 },
 {
-  key: '4',
+  key: 'requests',
   icon: React.createElement(AuditOutlined),
-  label: `Requests`,
+  label: <Link href="/Requests">Requests</Link>,
 },
 {
-  key: '5',
+  key: 'notifications',
   icon: React.createElement(MessageOutlined),
-  label: `Notifications`,
+  label: <Link href="/Notifications">Notifications</Link>,
 },
 {
-  key: '6',
+  key: 'reservations',
   icon: React.createElement(InteractionOutlined),
-  label: `Reservations`,
+  label: <Link href="/Reservations">Reservations</Link>,
 },
 {
-  key: '7',
+  key: 'reports',
   icon: React.createElement(InfoCircleOutlined),
-  label: `Reports`,
+  label: <Link href="/Reports">Reports</Link>,
 }
 
 ];
@@ -75,13 +79,13 @@ function Navigations(props) {
         <div style={{ position: 'sticky', top: 0 }}>
           <div style={{ color: 'white', width: '100%', textAlign: 'center',padding:'20px 10px'}}>LIBRARY MANAGEMENT SYSTEM</div>
           <hr></hr>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={sideitems} />
+          <Menu theme="dark" mode="inline"  items={sideitems}  defaultSelectedKeys={[props.selectedItem]}/>
         </div>
       </Sider>
       <Layout>
         <Header style={{ zIndex: 2, position: 'sticky', top: 0, padding: 0, background: 'rgb(255,255,255)' }} >
           <Menu style={{ position: 'sticky', top: 0, justifyContent: 'end' }}
-            theme="light" mode="horizontal" defaultSelectedKeys={['4']} items={items} />
+            theme="light" mode="horizontal" defaultSelectedKeys={[]} items={items}  />
         </Header>
         <Content style={{ margin: '24px 16px 0' }}>
           <div
@@ -100,6 +104,7 @@ function Navigations(props) {
         </Footer>
       </Layout>
     </Layout>
+
   );
 
 }

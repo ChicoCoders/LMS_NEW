@@ -44,7 +44,7 @@ const columns = [
       )
     },
     {
-      title: 'Staus',
+      title: 'Status',
       dataIndex: 'status',
       key: 'status',
       render: (status) => (status=="borrowed"?<Button type='primary'  size='small' shape='round'>Borrowed</Button>:(status=="overdue"?<Button type='danger' size='small' shape='round'>Overdue</Button>:<Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),

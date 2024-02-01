@@ -3,6 +3,7 @@ import { Button, Flex, Space, Table } from 'antd'
 import React from 'react'
 import { UserDeleteOutlined ,MoreOutlined} from '@ant-design/icons';
 import ResultTable from '../../Component/ResultTable';
+import Link from 'next/link';
 
 const columns = [
     {
@@ -26,14 +27,30 @@ const columns = [
         key: 'role',
       },
     {
-      title: 'Action',
+      title: 'More',
       dataIndex: '',
       key: 'x',
       render: () => (
-        <Space size="large">
-        <Button type='primary' icon={<MoreOutlined /> } size='small'></Button>
-        <Button type='primary' danger icon={<UserDeleteOutlined />}size='small'></Button>
+        <>
+        <Space size="large" >
+          <Link href="/" ><MoreOutlined/></Link>
         </Space>
+         
+        </>
+      )
+    },
+    {
+      title: 'Remove',
+      dataIndex: '',
+      key: 'x',
+      render: () => (
+        <>
+          <Space size="large">
+          <Link href="/" ><UserDeleteOutlined style={{color:'red'}}/></Link>
+                  {/* <Button type='primary' icon={<MoreOutlined /> } size='small'></Button>
+        <Button type='primary' danger icon={<UserDeleteOutlined />}size='small'></Button> */}
+        </Space>
+        </>
       )
     },
   ];

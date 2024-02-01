@@ -8,7 +8,7 @@ import { ArrowDownOutlined, ArrowUpOutlined,ReadOutlined  , UserOutlined ,
 import DashboardCard from './DashboardCard';
 import DashboardImage from './DashboardImage';
 import TimeCard from './TimeCard';
-import MyButton from '@/app/Component/MyButton';
+import MyButton from '../../Component/MyButton';
 
 
 const firstRow = {
