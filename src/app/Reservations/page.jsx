@@ -55,10 +55,10 @@ function page() {
   return (
     <div>
     <div>
-        <Navigations selectedItem="reservations">
-            <ContentBox pageroot={PageRoot}>
+        <Navigations selectedItem="Reservations" topic="Reservations"  pageroot={PageRoot}>
+            
                <SearchResult data={data}/>
-            </ContentBox>
+            
         </Navigations>
     </div>
 </div>

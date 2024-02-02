@@ -1,15 +1,16 @@
 'use client'
 import React from 'react'
-import { Card, Flex, Statistic} from 'antd'
+import { Button, Card, Flex, Statistic} from 'antd'
 
 const titlestyle={
-  color:'white',
+  
+
   fontSize:'1rem'
 }
-const prefixtyle={
-  fontWeight:'900',
-  fontSize:'2.5rem',
-  padding:'0 30px 0 0',
+const suffixstyle={
+  flex:1,
+  
+  padding:'0 0 0 30px',
   opacity:'0.5'
 }
 
@@ -17,20 +18,22 @@ const prefixtyle={
 function DashboardCard(props) {
   return (
     <div>
-      <Card bordered={false} style={{background:props.background,borderRadius:0,height:'100%'}} >
+      <Card   >
+        <Flex wrap='wrap'>
+          <Flex style={{flex:1}}>
         <Statistic 
-          title={<div style={titlestyle}>{props.title}</div>}
+          title={<div style={titlestyle}>{props.title} </div>}
           value={props.value}
           valueStyle={{
             fontWeight:'700',
-            color: 'white',
-            fontSize:'2.5rem',
-            textAlign:'center',
-            opacity:'0.8'
+            fontSize:'1.5rem',
+            opacity:'0.9'
           }}
-          prefix={<div style={prefixtyle}>{props.prefix}</div>}
-          suffix={props.suffix}
-        />
+         suffix={props.suffix}
+         prefix={props.prefix}
+        /></Flex>
+        <Flex style={suffixstyle} align='center' justify='center'><Button size='large'  type='primary' shape='circle'>{props.icon}</Button></Flex>
+        </Flex>
       </Card>
     </div>
   )

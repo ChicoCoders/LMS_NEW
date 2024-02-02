@@ -1,8 +1,9 @@
 'use client'
 import React from 'react';
 import { UserOutlined, MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined,DashboardOutlined  } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu, Space, theme } from 'antd';
 import Link from 'next/link';
+import AdressBar from './AdressBar';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -22,37 +23,37 @@ const items = [{
 
 
 const sideitems = [{
-  key: 'dashboard',
+  key: 'Dashboard',
   icon: React.createElement(DashboardOutlined ),
   label: <Link href="/Dashboard">Dashboard</Link>,
 },
 {
-  key: 'resources',
+  key: 'Resources',
   icon: React.createElement(ReadOutlined),
   label: <Link href="/Resources">Resources</Link>,
 },
 {
-  key: 'users',
+  key: 'Users',
   icon: React.createElement(UserOutlined),
   label: <Link href="/Users">Users</Link>,
 },
 {
-  key: 'requests',
+  key: 'Requests',
   icon: React.createElement(AuditOutlined),
   label: <Link href="/Requests">Requests</Link>,
 },
 {
-  key: 'notifications',
+  key: 'Notifications',
   icon: React.createElement(MessageOutlined),
   label: <Link href="/Notifications">Notifications</Link>,
 },
 {
-  key: 'reservations',
+  key: 'Reservations',
   icon: React.createElement(InteractionOutlined),
   label: <Link href="/Reservations">Reservations</Link>,
 },
 {
-  key: 'reports',
+  key: 'Reports',
   icon: React.createElement(InfoCircleOutlined),
   label: <Link href="/Reports">Reports</Link>,
 }
@@ -87,16 +88,13 @@ function Navigations(props) {
           <Menu style={{ position: 'sticky', top: 0, justifyContent: 'end' }}
             theme="light" mode="horizontal" defaultSelectedKeys={[]} items={items}  />
         </Header>
-        <Content style={{ margin: '24px 16px 0' }}>
-          <div
-            style={{
-              minHeight: 180,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
+        <Content style={{ margin: '24px 5%' }}>
+          
+        
+            <div ><AdressBar item={props.pageroot}/></div>
+            <div style={{padding:'5px 0 30px 0',fontSize:'20px',fontWeight:'600'}}>{props.topic}</div>
             {props.children}
-          </div>
+          
         </Content >
 
         <Footer style={{ textAlign: 'center' }}>

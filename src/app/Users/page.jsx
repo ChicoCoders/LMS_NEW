@@ -61,10 +61,10 @@ function page() {
     return (
         <div>
             <div>
-                <Navigations selectedItem="users">
-                    <ContentBox pageroot={PageRoot}>
+                <Navigations selectedItem="Users" topic='Search Users' pageroot={PageRoot}>
+                    
                        <SearchResult data={data}/>
-                    </ContentBox>
+                    
                 </Navigations>
             </div>
         </div>
