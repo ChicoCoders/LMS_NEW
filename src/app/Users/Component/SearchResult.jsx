@@ -58,7 +58,7 @@ const columns = [
 
 function SearchResult(props) {
   return(
-    <ResultTable dataset={props.data} columnset={columns} />
+    <ResultTable dataset={props.data} columnset={columns} pagination={{pageSize:20}}/>
   )
 }
 

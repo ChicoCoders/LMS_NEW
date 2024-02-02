@@ -7,7 +7,7 @@ function ResultTable(props) {
     <div style={{width:'100%',overflowX:'scroll'}}>
 <Table                      
                             loading='true'
-                            pagination={{ pageSize: 20 }}
+                            pagination={props.pagination}
                             columns={props.columnset}
                             expandable={{
                                 expandedRowRender: (record) => (

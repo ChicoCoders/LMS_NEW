@@ -27,12 +27,12 @@ function DashboardCard(props) {
           valueStyle={{
             fontWeight:'700',
             fontSize:'1.5rem',
-            opacity:'0.9'
+            opacity:'0.9',
           }}
          suffix={props.suffix}
          prefix={props.prefix}
         /></Flex>
-        <Flex style={suffixstyle} align='center' justify='center'><Button size='large'  type='primary' shape='circle'>{props.icon}</Button></Flex>
+        <Flex style={suffixstyle} align='center' justify='center'><div >{props.icon}</div></Flex>
         </Flex>
       </Card>
     </div>
