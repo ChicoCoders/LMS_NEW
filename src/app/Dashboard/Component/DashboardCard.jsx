@@ -2,37 +2,35 @@
 import React from 'react'
 import { Button, Card, Flex, Statistic} from 'antd'
 
-const titlestyle={
-  
-
-  fontSize:'1rem'
-}
-const suffixstyle={
-  flex:1,
-  
-  padding:'0 0 0 30px',
-  opacity:'0.5'
-}
-
 
 function DashboardCard(props) {
+  const titlestyle={
+    fontSize:'1rem'
+  }
+  const iconStyle={
+    flex:1,
+    opacity:'1'
+  }
+  const valueStyle={
+    fontWeight:'700',
+    fontSize:'1.5rem',
+    opacity:'0.9',
+  }
+
   return (
     <div>
       <Card   >
         <Flex wrap='wrap'>
-          <Flex style={{flex:1}}>
+         
+        <Flex style={iconStyle } align='center' ><div  >{props.icon}</div></Flex>
+        <Flex justify='right' style={{flex:2,textAlign:'right'}}>
         <Statistic 
           title={<div style={titlestyle}>{props.title} </div>}
           value={props.value}
-          valueStyle={{
-            fontWeight:'700',
-            fontSize:'1.5rem',
-            opacity:'0.9',
-          }}
+          valueStyle={valueStyle}
          suffix={props.suffix}
          prefix={props.prefix}
         /></Flex>
-        <Flex style={suffixstyle} align='center' justify='center'><div >{props.icon}</div></Flex>
         </Flex>
       </Card>
     </div>

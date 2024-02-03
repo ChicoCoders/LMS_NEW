@@ -67,7 +67,7 @@ function Navigations(props) {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
-        breakpoint="1g"
+        breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
           console.log(broken);
@@ -90,7 +90,7 @@ function Navigations(props) {
         </Header>
         <Content style={{ margin: '24px 5%' }}>
           
-        
+            
             <div ><AdressBar item={props.pageroot}/></div>
             <div style={{padding:'5px 0 30px 0',fontSize:'20px',fontWeight:'600'}}>{props.topic}</div>
             {props.children}

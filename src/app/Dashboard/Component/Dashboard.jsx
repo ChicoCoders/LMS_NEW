@@ -5,6 +5,9 @@ import {
     ArrowDownOutlined, ArrowUpOutlined, ReadOutlined, UserOutlined,
     AuditOutlined, DoubleRightOutlined, CalendarOutlined
     , FieldTimeOutlined, UserAddOutlined, NotificationOutlined, InteractionOutlined,
+    FileTextOutlined ,
+    BookOutlined ,
+    WarningOutlined ,
     InfoCircleOutlined
 } from '@ant-design/icons';
 import DashboardCard from './DashboardCard';
@@ -13,6 +16,7 @@ import TimeCard from './TimeCard';
 import MyButton from '../../Component/MyButton';
 import OverdueTable from "../Component/OverdueTable"
 import Chart from "../Component/Chart"
+import RecentNoti from "../Component/RecentNoti"
 
 const firstRow = {
     flex: 1,
@@ -41,36 +45,93 @@ const data = [
     // { reservationId: "res016", resourceId: "ISBN-9780345339706", userId: 16, userName: "Sophia", dueDate: "2024-05-17", status: "borrowed" },
     // Add more book transitions here
 ];
+const chart1 = [
+    {
+      day: '01-07',
+      y: 25,
+    },
+    {
+      day: '01-08',
+      y: 59,
+    },
+    {
+      day: '01-09',
+      y: 78,
+    },
+    {
+      day: '01-10',
+      y: 56,
+    },
+    {
+      day: '01-11',
+      y: 105,
+    },
+    {
+      day: '01-12',
+      y: 60,
+    }
+  ]
+const chart2 = [
+    {
+        day: '01-07',
+        y: 15,
+      },
+      {
+        day: '01-08',
+        y: 15,
+      },
+      {
+        day: '01-09',
+        y: 25,
+      },
+      {
+        day: '01-10',
+        y: 2,
+      },
+      {
+        day: '01-11',
+        y: 12,
+      },
+      {
+        day: '01-12',
+        y: 42,
+      }
+  ]
 
-const iconStyle={padding:8,borderRadius:20,fontSize:24,background:"blue",border:'2px solid black',color:"white"}
+
 
 function Dashboard() {
+
+    const iconStyle=  {padding:16,borderRadius:32,fontSize:24,background:"rgb(150,119,255)",border:'0px solid rgb(0,21,41)',color:'rgb(0,21,41)'}
+  
     return (
+        
         <Flex gap="30px" vertical style={{ width: "100%" }}>
             <Flex gap='8px' vertical >
                 <Flex gap="8px" wrap="wrap" align='stretch'>
                     <div style={firstRow}><DashboardCard title="Total" value="3257" icon={<ReadOutlined style={iconStyle} />} /></div>
-                    <div style={firstRow}><DashboardCard title="Users" value="250" icon={<UserOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Requests" value="10" icon={<AuditOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Issued" value="400" icon={<DoubleRightOutlined style={iconStyle}/>} /></div>
+                    <div style={firstRow}><DashboardCard title="Books" value="2500" icon={<UserOutlined style={iconStyle}/>} /></div>
+                    <div style={firstRow}><DashboardCard title="Ebooks" value="200" icon={<FileTextOutlined style={iconStyle}/>} /></div>
+                    <div style={firstRow}><DashboardCard title="Journals" value="400" icon={<BookOutlined style={iconStyle}/>} /></div>
 
                 </Flex>
                 <Flex gap="8px" wrap="wrap" align='stretch'>
-                    <div style={firstRow}><DashboardCard title="Total" value="3257" icon={<ReadOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Users" value="250" icon={<UserOutlined style={iconStyle}/>} /></div>
+                    <div style={firstRow}><DashboardCard title="Users" value="725" icon={<UserOutlined style={iconStyle}/>} /></div>
+                    <div style={firstRow}><DashboardCard title="Checkouts" value="250" icon={<DoubleRightOutlined style={iconStyle}/>} /></div>
                     <div style={firstRow}><DashboardCard title="Requests" value="10" icon={<AuditOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Issued" value="400" icon={<DoubleRightOutlined style={iconStyle}/>} /></div>
+                    <div style={firstRow}><DashboardCard title="Overdue" value="15" icon={<WarningOutlined style={iconStyle}/>} /></div>
 
                 </Flex>
             </Flex>
             <Flex gap="8px"  wrap='wrap'>
-            <div style={{ flex: 1, width: '100%' }}><Chart topic="This week transitions"/></div>
-                <div style={{ flex: 1, width: '100%' }}><Chart topic="Ebook Views"/></div>
+            <div style={{ flex: 1, width: '100%' }}><Chart topic="This week transitions" data={chart1}/></div>
+                <div style={{ flex: 1, width: '100%' }}><Chart topic="Ebook Views" data={chart2}/></div>
 
             </Flex>
             <Flex gap="8px" wrap="wrap" align='stretch' >
-                <div style={{ flex: 5  }}><OverdueTable data={data} /></div>
-                <div style={{ flex: 2}}></div>
+                
+                <div style={{ flex: 1}}><RecentNoti/></div>
+                <div style={{ flex: 2  }}><OverdueTable data={data} /></div>
 
             </Flex>
         </Flex>
