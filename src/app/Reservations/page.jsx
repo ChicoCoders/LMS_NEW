@@ -4,6 +4,7 @@ import Navigations from '../Component/Navigations'
 import ContentBox from '../Component/ContentBox'
 import { HomeOutlined,InteractionOutlined } from '@ant-design/icons';
 import { Space } from 'antd';
+import SearchReservation from './Component/SeachReservations'
 
 const PageRoot = [
   {
@@ -56,7 +57,7 @@ function page() {
     <div>
     <div>
         <Navigations selectedItem="Reservations" topic="Reservations"  pageroot={PageRoot}>
-            
+            <SearchReservation/>
                <SearchResult data={data}/>
             
         </Navigations>

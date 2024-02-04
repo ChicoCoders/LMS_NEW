@@ -12,8 +12,7 @@ function Chart(props) {
   const data = props.data
   const config = {
     data,
-    height: 200,
-    width: 400,
+    height:250,
     xField: 'day',
     yField: 'y',
     xAxis: {

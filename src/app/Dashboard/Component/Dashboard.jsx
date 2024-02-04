@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Button, Card, Flex, Table } from 'antd'
+import { Button, Card, Col, Flex, Table ,Row} from 'antd'
 import {
     ArrowDownOutlined, ArrowUpOutlined, ReadOutlined, UserOutlined,
     AuditOutlined, DoubleRightOutlined, CalendarOutlined
@@ -105,37 +105,36 @@ function Dashboard() {
     const iconStyle=  {padding:16,borderRadius:32,fontSize:24,background:"rgb(150,119,255)",border:'0px solid rgb(0,21,41)',color:'rgb(0,21,41)'}
   
     return (
+        <div>
+          
+          <Row style={{ width: "100%" }}  gutter={[5, 5]}>
+            <Col xs={24} sm={6}><DashboardCard title="Total" value="3257" icon={<ReadOutlined style={iconStyle} />} /></Col>
+            <Col xs={24} sm={6}><DashboardCard title="Books" value="2500" icon={<UserOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard title="Ebooks" value="200" icon={<FileTextOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard title="Journals" value="400" icon={<BookOutlined style={iconStyle}/>} /></Col>
+          
+            <Col  xs={24} sm={6}><DashboardCard title="Users" value="725" icon={<UserOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard title="Checkouts" value="250" icon={<DoubleRightOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard title="Requests" value="10" icon={<AuditOutlined style={iconStyle}/>} /></Col>
+            <Col xs={24} sm={6}><DashboardCard title="Overdue" value="15" icon={<WarningOutlined style={iconStyle}/>} /></Col>
+          </Row>
+          <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
+            <Col xs={24} sm={12}><Chart topic="This week transitions" data={chart1}/></Col>
+            <Col xs={24} sm={12}><Chart topic="Ebook Views" data={chart2}/></Col>
+          </Row>
+          <Row style={{ width: "100%" ,margin:'30px 0'}}  gutter={[5, 5]}>
+            <Col xs={24} sm={10}><RecentNoti/></Col>
+            <Col xs={24} sm={14}><OverdueTable data={data} /></Col>
+          </Row>
+         
+         
+           
+          
         
-        <Flex gap="30px" vertical style={{ width: "100%" }}>
-            <Flex gap='8px' vertical >
-                <Flex gap="8px" wrap="wrap" align='stretch'>
-                    <div style={firstRow}><DashboardCard title="Total" value="3257" icon={<ReadOutlined style={iconStyle} />} /></div>
-                    <div style={firstRow}><DashboardCard title="Books" value="2500" icon={<UserOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Ebooks" value="200" icon={<FileTextOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Journals" value="400" icon={<BookOutlined style={iconStyle}/>} /></div>
 
-                </Flex>
-                <Flex gap="8px" wrap="wrap" align='stretch'>
-                    <div style={firstRow}><DashboardCard title="Users" value="725" icon={<UserOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Checkouts" value="250" icon={<DoubleRightOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Requests" value="10" icon={<AuditOutlined style={iconStyle}/>} /></div>
-                    <div style={firstRow}><DashboardCard title="Overdue" value="15" icon={<WarningOutlined style={iconStyle}/>} /></div>
 
-                </Flex>
-            </Flex>
-            <Flex gap="8px"  wrap='wrap'>
-            <div style={{ flex: 1, width: '100%' }}><Chart topic="This week transitions" data={chart1}/></div>
-                <div style={{ flex: 1, width: '100%' }}><Chart topic="Ebook Views" data={chart2}/></div>
-
-            </Flex>
-            <Flex gap="8px" wrap="wrap" align='stretch' >
-                
-                <div style={{ flex: 1}}><RecentNoti/></div>
-                <div style={{ flex: 2  }}><OverdueTable data={data} /></div>
-
-            </Flex>
-        </Flex>
-
+        </div>
+       
 
     )
 }

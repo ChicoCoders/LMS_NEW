@@ -1,12 +1,28 @@
 'use client'
 import ResultTable from '../../Component/ResultTable'
-import React from 'react'
+import React, { useState } from 'react'
 import { UserDeleteOutlined ,MoreOutlined} from '@ant-design/icons';
 import { Button, Space, Tag } from 'antd';
+import IssueModal from './IsuueModal'
 
 
 
-const columns = [
+
+
+
+function SearchResult(props) {
+
+
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+    setOpen(true);
+  };
+  const closeModal=()=>{
+    setOpen(false);
+  };
+ 
+
+  const columns = [
     {
         title: 'Reservation',
         dataIndex: 'reservationId',
@@ -47,15 +63,15 @@ const columns = [
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status) => (status=="borrowed"?<Button type='primary'  size='small' shape='round'>Borrowed</Button>:(status=="overdue"?<Button type='danger' size='small' shape='round'>Overdue</Button>:<Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),
+      render: (status) => (status=="borrowed"?<Button onClick={showModal} type='primary'  size='small' shape='round'>Borrowed</Button>:(status=="overdue"?<Button type='danger' size='small' shape='round'>Overdue</Button>:<Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),
     },
   
   ];
 
-function SearchResult(props) {
   return (
     <div>
       <ResultTable dataset={props.data} columnset={columns} pagination={{pageSize:20}}/>
+      <IssueModal  open1={open} open={showModal} close={closeModal}/>
     </div>
   )
 }
