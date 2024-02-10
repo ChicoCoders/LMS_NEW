@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { UserOutlined, MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined,DashboardOutlined  } from '@ant-design/icons';
-import { Layout, Menu, Space, theme } from 'antd';
+import { Card, Flex, Layout, Menu, Space, theme } from 'antd';
 import Link from 'next/link';
 import AdressBar from './AdressBar';
 
@@ -90,10 +90,15 @@ function Navigations(props) {
         </Header>
         <Content style={{ margin: '24px 5%' }}>
           
-            
+            <Card >
+              <Flex justify='space-between' align='center' wrap=''>
+           
+            <div style={{fontSize:'20px',fontWeight:'600'}}>{props.topic}</div>
             <div ><AdressBar item={props.pageroot}/></div>
-            <div style={{padding:'5px 0 30px 0',fontSize:'20px',fontWeight:'600'}}>{props.topic}</div>
-            {props.children}
+            </Flex>
+            <div style={{margin:'30px 0 0 0 '}}>{props.children}</div>
+            
+            </Card>
           
         </Content >
 

@@ -18,7 +18,7 @@ const PageRoot = [
       title: (
           <>
               <InteractionOutlined />
-              <span>Resources</span>
+              <span>Reservations</span>
           </>
       ),
   },

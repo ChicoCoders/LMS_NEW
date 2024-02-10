@@ -7,7 +7,7 @@ import SearchResult from './Component/SearchResult';
 
 const PageRoot = [
     {
-        href: '',
+        href: '/Dashboard',
         title: <HomeOutlined />,
     },
     {

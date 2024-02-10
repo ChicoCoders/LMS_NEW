@@ -1,10 +1,14 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
+
 import Navigations from '../Component/Navigations'
+import ContentBox from '../Component/ContentBox'
 import { HomeOutlined } from '@ant-design/icons';
-import { Button, Card } from 'antd';
+import UserAddForm from './Component/UserAddForm';
+import { Button, Form, Input } from 'antd';
 
 
-const PageRoot1 = [
+const PageRoot = [
     {
         href: '/Dashboard',
         title: <HomeOutlined />,
@@ -29,16 +33,17 @@ const PageRoot1 = [
     },
 ]
 
+
 function page() {
+  
+
     return (
         <div>
-            <div>
-                <Navigations selectedItem="Users" topic='Search Users' pageroot={PageRoot1}>
-                    
-                    <Card title="myCard">gegrdrgdgrdrteertg</Card>
-                    
-                </Navigations>
-            </div>
+            
+                   
+                    <UserAddForm />
+
+                
         </div>
     )
 }
