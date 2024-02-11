@@ -1,8 +1,12 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import Navigations from '../Component/Navigations'
 import ContentBox from '../Component/ContentBox'
 import { HomeOutlined } from '@ant-design/icons';
 import SearchResult from './Component/SearchResult';
+import { Button } from 'antd';
+import AddUserModal from './Component/AddUserModal';
+
 
 
 const PageRoot = [
@@ -58,13 +62,20 @@ const data =  [
 
 
 function page() {
+    const [open, setOpen] = useState(false);
+    const showModal = () => {
+    setOpen(true);
+    };
+    const closeModal=()=>{
+    setOpen(false);
+    };
     return (
         <div>
             <div>
                 <Navigations selectedItem="Users" topic='Search Users' pageroot={PageRoot}>
-                    
-                       <SearchResult data={data}/>
-                    
+                    <Button onClick={()=>showModal() }/>
+                       <SearchResult data={data} />
+                        <AddUserModal open1={open} open={showModal} close={closeModal}/>
                 </Navigations>
             </div>
         </div>

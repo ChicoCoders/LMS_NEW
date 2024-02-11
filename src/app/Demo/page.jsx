@@ -1,51 +1,34 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-
-import Navigations from '../Component/Navigations'
-import ContentBox from '../Component/ContentBox'
-import { HomeOutlined } from '@ant-design/icons';
-import UserAddForm from './Component/UserAddForm';
-import { Button, Form, Input } from 'antd';
+import ProfilePicUploadPopup from './Component/ProfilePicUploadPopup'
+import { Button } from 'antd';
 
 
-const PageRoot = [
-    {
-        href: '/Dashboard',
-        title: <HomeOutlined />,
-    },
-    {
-        href: '',
-        title: (
-            <>
-                <HomeOutlined />
-                <span>Users</span>
-            </>
-        ),
-    },
-    {
-        href: '',
-        title: (
-            <>
-                <HomeOutlined />
-                <span> Search Results</span>
-            </>
-        ),
-    },
-]
+
+
 
 
 function page() {
-  
 
-    return (
-        <div>
-            
-                   
-                    <UserAddForm />
 
-                
-        </div>
-    )
+  const [open, setOpen] = useState(false);
+
+  const showModal = () => {
+    
+    setOpen(true);
+  };
+
+  const closeModal=()=>{
+    setOpen(false);
+  };
+ 
+  return(
+    <>
+    <Button onClick={showModal}>yes</Button>
+<ProfilePicUploadPopup open1={open} open={showModal} close={closeModal}/>
+</>
+)
 }
-
+  
+ 
 export default page

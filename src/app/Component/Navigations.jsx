@@ -96,11 +96,11 @@ function Navigations(props) {
             <div style={{fontSize:'20px',fontWeight:'600'}}>{props.topic}</div>
             <div ><AdressBar item={props.pageroot}/></div>
             </Flex>
-            <div style={{margin:'30px 0 0 0 '}}>{props.children}</div>
+            <Flex  vertical style={{margin:'30px 0 0 0 '}}>{props.children}</Flex>
             
             </Card>
           
-        </Content >
+          </Content >
 
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED

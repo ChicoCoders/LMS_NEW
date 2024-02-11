@@ -6,7 +6,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 
 
-function UserAddForm() {
+function UserAddForm(props) {
 
     const [form] = Form.useForm();
 
@@ -63,14 +63,14 @@ function UserAddForm() {
     return (
 
     <div>
-                    <Form   form={form} size='small' layout='vertical' name="nest-messages"  style={{width:"80%"}}>
-                    <Row align="middle"  gutter={[10,10]}>
+                    <Form   form={props.form} size='small' layout='vertical' name="nest-messages"  >
+                    <Row align="middle"  gutter={[30,10]}>
                     <Col xs={24}  sm={6}>
                         <Image
-                            src="https://5.imimg.com/data5/HX/TD/MY-14344381/nootan-physics-xii-book-500x500.png"
+                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
                             alt="Picture of the author"
-                            width="150px"
-    
+                            width="100%"
+                            style={{borderRadius:'50%'}}
                         />
                     </Col>
                     <Col xs={24} sm={18}>
@@ -109,9 +109,7 @@ function UserAddForm() {
                         <Row gutter={[30,10]}>
                             <Col xs={24} sm={24}><Form.Item><Checkbox checked> Send notification to user</Checkbox></Form.Item></Col>
                         </Row>
-                        <Row gutter={[30,10]}>
-                            <Col xs={24} sm={24}><Form.Item> <Button type="primary"  block onClick={()=>submitForm()} >Submit </Button></Form.Item></Col>
-                        </Row>
+                        
                     </Col>
                     
                 </Row>

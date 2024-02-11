@@ -15,9 +15,6 @@ function EditModal(props) {
     return (
         <div>
             <Modal
-                mask={true}
-                maskClosable={false}
-                
                 title="Extend Due Date"
                 width="300px"
                 open={props.open}

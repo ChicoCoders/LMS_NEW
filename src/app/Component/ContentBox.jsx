@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Card} from 'antd'
+import { Card, Flex} from 'antd'
 import AdressBar from './AdressBar'
 
 function ContentBox(props) {
@@ -13,9 +13,9 @@ function ContentBox(props) {
         minHeight:'360px',
       }}
     >
-      <div style={{padding:'0 40px'}}>
+      <Flex justify='space-around' style={{padding:'0 40px'}}>
       {props.children}
-      </div>
+      </Flex>
     </Card>
     </div>
   )
