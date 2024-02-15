@@ -1,5 +1,7 @@
-import React from 'react';
-import { Card, Row, Col } from 'antd';
+'use client'
+import React, {useState} from 'react';
+import { Card, Row, Col, Button, Select } from 'antd';
+const { Option } = Select;
 
 const notifications = [
     {
@@ -61,31 +63,118 @@ const notifications = [
 ];
 
 
+// ... (import statements remain unchanged)
+
 function NotificationCard() {
+    // useState to store the notifications
+    const [notifi, setNotifications] = useState(notifications);
+    const [selectedType, setSelectedType] = useState("All");
+
+    // function to remove the notification
+    const handleRemove = (id) => {
+        const newNotifications = notifi.filter((notify) => notify.id !== id);
+        setNotifications(newNotifications);
+    };
+
+    const handleTypeChange = (value) => {
+        setSelectedType(value);
+        //if type = all, show all notifications
+        if(value === 'All'){
+            return setNotifications(notifications);
+        }else{
+            const filteredNotifications = value ? notifications.filter((notify) => notify.type === value) : notifications;
+            setNotifications(filteredNotifications);
+        }
+
+    };
+
     return (
         <div>
-            {notifications.map((notification) => (
+            <Row gutter={16} style={{ marginBottom: '30px',}}>
+                <Col span={12}>
+                    <Button style={{ marginRight: '10px', width:'150px', backgroundColor: '#001628', color:"#ffff" }}>Reminding</Button>
+                    <Button style={{ marginRight: '10px', width:'150px', backgroundColor: '#001628', color:"#ffff"  }}>New</Button>
+                    <Button style={{ marginRight: '10px', width:'150px', backgroundColor: '#001628', color:"#ffff"  }}>Updates</Button>
+                </Col>
+                <Col span={8}>
+
+                    <Select
+                        placeholder="Select Type"
+                        style={{ width: '150px' }}
+                        onChange={handleTypeChange}
+                        value={selectedType}
+                    >
+                         {/*default value is all*/}
+                        <Option value="All">All</Option>
+                        <Option value="Special Notice">Special Notice</Option>
+                        <Option value="Updates">Updates</Option>
+                        <Option value="Reminder">Reminder</Option>
+                        {/* Add more options based on your notification types */}
+                    </Select>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        style={{
+                            width: '50%',
+                            padding: '5px',
+                            borderRadius: '5px',
+                            border: '1px solid #ccc',
+                        }}
+                    />
+                </Col>
+            </Row>
+
+            {notifi.map((notification) => (
                 <Card
                     key={notification.id}
                     style={{
                         width: '100%',
-                        margin: '10px 0',
-                        backgroundColor: '#f0f0f0'
+                        margin: '15px 0',
+                        backgroundColor: '#f0f0f0',
+                        borderRadius: '20px',
+                        boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                     }}
                 >
                     <Row gutter={16}>
                         <Col span={1}>
-                            <strong>{notification.id}</strong>
+                            <div>
+                                <strong>{notification.id}</strong>
+                            </div>
                         </Col>
                         <Col span={20}>
                             <div>
-                                <p>To: {notification.to}</p>
-                                <p>Date: {notification.date}</p>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <div>
+                                        To: {notification.to}
+                                    </div>
+                                    <div style={{ textAlign: 'right' }}>
+                                        Date: {notification.date}
+                                    </div>
+                                </div>
                             </div>
-                            <div style={{ marginTop: '10px' }}>
+                            <div>
                                 <p><strong>{notification.type}</strong></p>
                                 <p>{notification.description}</p>
                             </div>
+                        </Col>
+                        <Col span={1}>
+                            <Button
+                                style={{
+                                    backgroundColor: '#ff4d4f',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '100%',
+                                    padding: '5px 10px',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                                }}
+                                onClick={() => handleRemove(notification.id)}
+                            >
+                                Remove
+                            </Button>
                         </Col>
                     </Row>
                 </Card>
@@ -95,3 +184,4 @@ function NotificationCard() {
 }
 
 export default NotificationCard;
+
