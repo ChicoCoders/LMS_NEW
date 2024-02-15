@@ -5,10 +5,6 @@ import NotificationCard from "./NotificationCard";
 
 function NotificationTable() {
   return (
-    // <div>
-    //
-    //
-    // </div>
       <NotificationCard />
   )
 }
