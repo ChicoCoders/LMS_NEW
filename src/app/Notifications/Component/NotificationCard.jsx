@@ -15,6 +15,7 @@ function NotificationCard() {
     const [notifi, setNotifications] = useState(notifications);
     const [selectedType, setSelectedType] = useState("All");
     const [visible, setVisible] = useState(false);
+    const [searchText, setSearchText] = useState('');
 
     const showAddModal = () => {
         setVisible(true);
@@ -26,9 +27,10 @@ function NotificationCard() {
           date: new Date().toLocaleDateString(),
           ...values,
         };
-        const updatedNotifications = [...notifi, newNotification];
+        notifications = [...notifi, newNotification];
+        // notifications = updatedNotifications;
 
-        setNotifications(updatedNotifications);
+        setNotifications(notifications);
         setVisible(false);
     };
     const handleCancel = () => {
@@ -39,6 +41,16 @@ function NotificationCard() {
         const newNotifications = notifi.filter((notify) => notify.id !== id);
         notifications = newNotifications;
         setNotifications(newNotifications);
+    };
+    const handleSearch = (value) => {
+        setSearchText(value);
+        const filteredNotifications = notifications.filter(
+          (notify) =>
+            notify.to.toLowerCase().includes(value.toLowerCase()) ||
+            notify.type.toLowerCase().includes(value.toLowerCase()) ||
+            notify.description.toLowerCase().includes(value.toLowerCase())
+        );
+        setNotifications(filteredNotifications);
     };
 
     const handleTypeChange = (value) => {
@@ -65,7 +77,7 @@ function NotificationCard() {
 
                     <Select
                         placeholder="Select Type"
-                        style={{ width: '150px'}}
+                        style={{width: '150px'}}
                         onChange={handleTypeChange}
                         value={selectedType}
                     >
@@ -79,6 +91,8 @@ function NotificationCard() {
                     <input
                         type="text"
                         placeholder="Search..."
+                        value={searchText}
+                        onChange={(e) => handleSearch(e.target.value)}
                         style={{
                             width: '50%',
                             padding: '7px',
@@ -87,7 +101,12 @@ function NotificationCard() {
                         }}
                     />
                     <Tooltip title="search">
-                        <Button style={{backgroundColor:"#001628", color: "#ffff", borderRadius:"0 5px 5px 0"}} type="primary" shape="square" icon={<SearchOutlined />} />
+                        <Button
+                            style={{backgroundColor: '#001628', color: '#ffff', borderRadius: '0 5px 5px 0'}}
+                            type="primary"
+                            shape="square"
+                            icon={<SearchOutlined/>}
+                        />
                     </Tooltip>
                 </Col>
             </Row>
