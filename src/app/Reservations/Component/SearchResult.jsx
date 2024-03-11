@@ -67,7 +67,7 @@ function SearchResult(props) {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status,record) => (status=="borrowed"?<Button onClick={() => showModal(record)} type='primary'  size='small' shape='round'>Borrowed</Button>:(status=="overdue"?<Button type='danger' size='small' shape='round'>Overdue</Button>:<Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),
+      render: (status,record) => (status=="borrowed"?<Button onClick={() => showModal(record)} type='primary'  size='small' shape='round'>Borrowed</Button>:(status=="due"?<Button type='primary' danger size='small' shape='round'>Overdue</Button>:<Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),
     },
   
   ];

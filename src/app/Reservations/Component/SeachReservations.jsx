@@ -21,11 +21,12 @@ const handleChange = (value) => {
 };
 
 
-function SeachReservations() {
+function SeachReservations(props) {
 
-    const [placement, SetPlacement] = useState('*');
+    const [placement, SetPlacement] = useState("*");
     const placementChange = (e) => {
         SetPlacement(e.target.value);
+        props.func(e.target.value);
     };
 
     return (

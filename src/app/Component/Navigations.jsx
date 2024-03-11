@@ -1,9 +1,10 @@
 'use client'
-import React from 'react';
-import { UserOutlined, MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined,DashboardOutlined  } from '@ant-design/icons';
-import { Card, Flex, Layout, Menu, Space, theme } from 'antd';
+import React, { useState } from 'react';
+import { UserOutlined,LogoutOutlined , MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined, DashboardOutlined } from '@ant-design/icons';
+import { Card, ConfigProvider, Flex, Layout, Menu, Space, theme } from 'antd';
 import Link from 'next/link';
 import AdressBar from './AdressBar';
+import MenuItem from 'antd/es/menu/MenuItem';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -11,7 +12,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const items = [{
   key: '1',
   icon: React.createElement(MessageOutlined),
-  label:'Notifications',
+  label: 'Notifications',
 },
 {
   key: '2',
@@ -24,7 +25,7 @@ const items = [{
 
 const sideitems = [{
   key: 'Dashboard',
-  icon: React.createElement(DashboardOutlined ),
+  icon: React.createElement(DashboardOutlined),
   label: <Link href="/Dashboard">Dashboard</Link>,
 },
 {
@@ -56,51 +57,72 @@ const sideitems = [{
   key: 'Reports',
   icon: React.createElement(InfoCircleOutlined),
   label: <Link href="/Reports">Reports</Link>,
-}
+},
 
 ];
 
 function Navigations(props) {
+  const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
+        collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
         style={{ height: "auto" }}
       >
         <div style={{ position: 'sticky', top: 0 }}>
-          <div style={{ color: 'white', width: '100%', textAlign: 'center',padding:'20px 10px'}}>LIBRARY MANAGEMENT SYSTEM</div>
+          <div style={{ color: 'white', width: '100%', textAlign: 'center', padding: '20px 10px' }}>LIBRARY MANAGEMENT SYSTEM</div>
           <hr></hr>
-          <Menu theme="dark" mode="inline"  items={sideitems}  defaultSelectedKeys={[props.selectedItem]}/>
+          <ConfigProvider
+            theme={{
+              components: {
+                Menu: {
+                  iconSize:20,
+                  iconMarginInlineEnd:20,
+                  darkItemHoverBg:'rgba(0, 0, 0, 0.3)',
+                  collapsedIconSize:20,
+                },
+              },
+            }}
+          >
+          
+          <Menu theme="dark" mode="inline" items={sideitems} defaultSelectedKeys={[props.selectedItem]} />
+          <ConfigProvider
+            theme={{
+              components: {
+                Menu: {
+                  darkItemHoverBg:'	#ff7875',
+                },
+              },
+            }}
+          >
+         <Menu theme="dark" mode="inline">
+            <MenuItem  icon={<LogoutOutlined />}>Logout</MenuItem>
+         </Menu>
+         </ConfigProvider>
+          </ConfigProvider>
         </div>
       </Sider>
       <Layout>
         <Header style={{ zIndex: 2, position: 'sticky', top: 0, padding: 0, background: 'rgb(255,255,255)' }} >
           <Menu style={{ position: 'sticky', top: 0, justifyContent: 'end' }}
-            theme="light" mode="horizontal" defaultSelectedKeys={[]} items={items}  />
+            theme="light" mode="horizontal" defaultSelectedKeys={[]} items={items} />
         </Header>
         <Content style={{ margin: '24px 5%' }}>
-          
-            <Card >
-              <Flex justify='space-between' align='center' wrap=''>
-           
-            <div style={{fontSize:'20px',fontWeight:'600'}}>{props.topic}</div>
-            <div ><AdressBar item={props.pageroot}/></div>
+
+          <Card >
+            <Flex justify='space-between' align='center' wrap=''>
+
+              <div style={{ fontSize: '20px', fontWeight: '600' }}>{props.topic}</div>
+              <div ><AdressBar item={props.pageroot} /></div>
             </Flex>
-            <Flex  vertical style={{margin:'30px 0 0 0 '}}>{props.children}</Flex>
-            
-            </Card>
-          
-          </Content >
+            <Flex vertical style={{ margin: '30px 0 0 0 ' }}>{props.children}</Flex>
+
+          </Card>
+
+        </Content >
 
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED

@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import SearchResult from './Component/SearchResult'
 import Navigations from '../Component/Navigations'
 import ContentBox from '../Component/ContentBox'
@@ -53,14 +54,25 @@ const data = [
 ];
 
 function page() {
+
+  const [status,setStatus]=useState("*")
+  const[usertype,SetUserType]=useState("Admin")
+
+
   return (
     <div>
     <div>
-        <Navigations selectedItem="Reservations" topic="Reservations"  pageroot={PageRoot}>
-            <SearchReservation/>
-               <SearchResult data={data}/>
+      {(usertype=="Admin")?
+        <Navigations selectedItem="Reservations" topic="Reservations"  pageroot={PageRoot} usertypeChange={SetUserType}>
+            <SearchReservation func={setStatus}/>
+               <SearchResult data={status=="*"?data:data.filter(book => book.status === status)} />
             
         </Navigations>
+        :
+        <Navigations selectedItem="Reservations" topic="My Reservations"  pageroot={PageRoot} usertypeChange={SetUserType}>
+            <SearchReservation func={setStatus}/>
+               <SearchResult data={status=="*"?data:data.filter(book => book.status === status)} />
+        </Navigations>}
     </div>
 </div>
   )
