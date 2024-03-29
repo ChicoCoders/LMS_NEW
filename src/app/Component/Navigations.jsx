@@ -5,6 +5,15 @@ import { Card, ConfigProvider, Flex, Layout, Menu, Space, theme } from 'antd';
 import Link from 'next/link';
 import AdressBar from './AdressBar';
 import MenuItem from 'antd/es/menu/MenuItem';
+import { usePathname, useRouter } from 'next/navigation';
+import {image1} from '../../../public/lib1.jpg'
+import Image from 'next/image';
+
+import axios from 'axios';
+
+import Cookies from 'js-cookie';
+
+
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -61,20 +70,46 @@ const sideitems = [{
 
 ];
 
+
+
 function Navigations(props) {
+
+  const router=useRouter();
+  const logout=async()=>{
+    try{
+      const response =await axios.post('http://localhost:5164/api/Auth/Logout', 
+              { withCredentials: true });
+      Cookies.remove('jwt')
+    //  const response=axios.post();
+    console.log(response);
+     router.push('/LogIN');
+     }catch(error){
+          console.log(error);
+     }
+  }
+
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  // const {
+  //   token: { colorBgContainer, borderRadiusLG },
+  // } = theme.useToken();
+  
+const location = usePathname();
+
+// Extracting the root path
+const rootPath = location.split('/')[1];
   return (
+
+    (rootPath!="LogIN")?(
+    
     <Layout style={{ minHeight: '100vh' }}>
+     
       <Sider
         collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
         style={{ height: "auto" }}
       >
         <div style={{ position: 'sticky', top: 0 }}>
-          <div style={{ color: 'white', width: '100%', textAlign: 'center', padding: '20px 10px' }}>LIBRARY MANAGEMENT SYSTEM</div>
-          <hr></hr>
+          
+          <div style={{ color: 'white', width: '100%', textAlign: 'center', padding: '20px 10px' }}>{!(collapsed)?<Image src='/translib.png'  width={140} height={35}/>:<Image src='/translogo.png'  width={40} height={35}/>}</div>
           <ConfigProvider
             theme={{
               components: {
@@ -88,7 +123,7 @@ function Navigations(props) {
             }}
           >
           
-          <Menu theme="dark" mode="inline" items={sideitems} defaultSelectedKeys={[props.selectedItem]} />
+          <Menu theme="dark" mode="inline" items={sideitems} defaultSelectedKeys={rootPath} />
           <ConfigProvider
             theme={{
               components: {
@@ -99,7 +134,7 @@ function Navigations(props) {
             }}
           >
          <Menu theme="dark" mode="inline">
-            <MenuItem  icon={<LogoutOutlined />}>Logout</MenuItem>
+            <MenuItem onClick={logout}  icon={<LogoutOutlined />}>Logout</MenuItem>
          </Menu>
          </ConfigProvider>
           </ConfigProvider>
@@ -115,7 +150,7 @@ function Navigations(props) {
           <Card >
             <Flex justify='space-between' align='center' wrap=''>
 
-              <div style={{ fontSize: '20px', fontWeight: '600' }}>{props.topic}</div>
+              <div style={{ fontSize: '20px', fontWeight: '600' }}>{rootPath}</div>
               <div ><AdressBar item={props.pageroot} /></div>
             </Flex>
             <Flex vertical style={{ margin: '30px 0 0 0 ' }}>{props.children}</Flex>
@@ -129,6 +164,9 @@ function Navigations(props) {
         </Footer>
       </Layout>
     </Layout>
+  ):
+  
+ <div>{props.children}</div>
 
   );
 
