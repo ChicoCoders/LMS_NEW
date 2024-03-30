@@ -1,7 +1,7 @@
 'use client'
 import { Card, Checkbox, Col, DatePicker, Form, Image, Input, InputNumber, Row, Select } from 'antd'
 import Column from 'antd/es/table/Column';
-import React from 'react'
+import React, { use, useState } from 'react'
 
 
 
@@ -16,7 +16,13 @@ const validateMessages = {
     },
 };
 
+
 function ReturnForam(props) {
+    const [borrowerID,setBorrowerId]=useState("");
+    const [IssuerID,setIssuerId]=useState("");
+    const [dueDate,setueDate]=useState("");
+
+   
     return (
         
             <Form   form={props.form1} size='small' layout='vertical' name="nest-messages" validateMessages={validateMessages}>
@@ -31,16 +37,16 @@ function ReturnForam(props) {
                     </Col>
                     <Col xs={24} sm={16}>
                         <Row gutter={[10,10]}>
-                            <Col xs={24} sm={12}><Form.Item name='reservationId' label="Reservation Id"  initialValue={props.data1.reservationNo}><Input disabled placeholder={props.data1.reservationNo} /> </Form.Item></Col>
-                            <Col xs={24} sm={12}><Form.Item name="resourceId" label="Resource/ISBN" initialValue={props.data1.resource}><Input disabled placeholder={props.data1.resource} /></Form.Item></Col>
+                            <Col xs={24} sm={12}><Form.Item name="resourceId" label="Resource/ISBN"  initialValue={props.data1}><Input disabled placeholder={props.data1} /></Form.Item></Col>
+                            <Col xs={24} sm={12}><Form.Item name="borrowerId" label="Borrowed By" rules={[{ required: true }]}><Input/></Form.Item></Col>
                         </Row>
                         <Row gutter={[10,10]}>
-                        <Col xs={24} sm={12}><Form.Item name="returnid" label="Return by" rules={[{ required: true }]}><Input/></Form.Item></Col>
-                            <Col xs={24} sm={12}><Form.Item name="returnDate" label="Return Date" rules={[{ required: true }]}><DatePicker /></Form.Item></Col>
+                             <Col xs={24} sm={12}><Form.Item name="issuerId" label="Issued By" rules={[{ required: true }]}><Input/></Form.Item></Col>
+                             <Col xs={24} sm={12}><Form.Item name="dueDate" label="Return Date" rules={[{ required: true }]}><DatePicker /></Form.Item></Col>
                         </Row>
-                        <Row gutter={[10,10]}>
-                            <Col xs={24} sm={12}><Form.Item name='penalty' label="Penalty"><InputNumber /></Form.Item></Col>
-                        </Row>
+                        
+                        
+                     
                         <Row gutter={[10,10]}>
                             <Col xs={24} sm={24}><Form.Item><Checkbox checked> Send notification to user</Checkbox></Form.Item></Col>
                         </Row>
