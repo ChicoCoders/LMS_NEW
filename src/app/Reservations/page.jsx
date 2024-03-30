@@ -13,34 +13,12 @@ const PageRoot = [ // Root navigation items
 ];
 
 function page() {
-  // const [keyword, setKeyword] = useState(""); // State for keyword
-   const [status, setStatus] = useState("*"); // State for status
-  // const [type, setType] = useState("*"); // State for type
-  // const [items, setItems] = useState([]); // State for items (search results)
+  
+   const [status, setStatus] = useState("*"); 
+  
    const [loading, setLoading] = useState(true); // Loading state
 
-  // async function fetchData(type) { // Function to fetch data from server
-  //   setLoading(true); // Set loading to true while fetching
-  //   try {
-  //     // Sending POST request to fetch data based on search parameters
-  //     const response = await axios.post('http://localhost:5164/api/Reservation/SearchReservation', {
-  //       keywords: keyword,
-  //       resourceId: type === "resourceId" || type === "*",
-  //       userId: type === "userId" || type === "*",
-  //       reservationId: type === "reservationId" || type === "*"
-  //     });
-  //     const data = response.data; // Extracting data from response
-  //     setLoading(false); // Setting loading to false after data is fetched
-  //     setItems(data); // Updating items state with fetched data
-  //   } catch (error) {
-  //     setLoading(false); // Setting loading to false if there's an error
-  //     console.error('Error fetching data:', error); // Logging error to console
-  //   }
-  // }
-
-  // const search = () => fetchData(type); // Function to trigger search
-
-  // useEffect(() => { fetchData("*"); }, []); // Fetch data on component mount
+  
 
   return (
     <div>
