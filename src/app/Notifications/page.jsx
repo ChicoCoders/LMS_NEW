@@ -34,12 +34,12 @@ function page() {
     return (
         <div>
             <div>
-                <Navigations selectedItem="Notifications" topic='Notifications' pageroot={PageRoot1}>
+                
                     
                    <NotificationTable/>
 
                     
-                </Navigations>
+               
             </div>
         </div>
     )
