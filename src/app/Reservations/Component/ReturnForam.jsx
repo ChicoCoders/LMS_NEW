@@ -31,8 +31,8 @@ function ReturnForam(props) {
                     </Col>
                     <Col xs={24} sm={16}>
                         <Row gutter={[10,10]}>
-                            <Col xs={24} sm={12}><Form.Item name='reservationId' label="Reservation Id" ><Input disabled placeholder={props.data1.reservationId} /> </Form.Item></Col>
-                            <Col xs={24} sm={12}><Form.Item name="resourceId" label="Resource/ISBN"><Input disabled placeholder={props.data1.resourceId} /></Form.Item></Col>
+                            <Col xs={24} sm={12}><Form.Item name='reservationId' label="Reservation Id"  initialValue={props.data1.reservationNo}><Input disabled placeholder={props.data1.reservationNo} /> </Form.Item></Col>
+                            <Col xs={24} sm={12}><Form.Item name="resourceId" label="Resource/ISBN" initialValue={props.data1.resource}><Input disabled placeholder={props.data1.resource} /></Form.Item></Col>
                         </Row>
                         <Row gutter={[10,10]}>
                         <Col xs={24} sm={12}><Form.Item name="returnid" label="Return by" rules={[{ required: true }]}><Input/></Form.Item></Col>
