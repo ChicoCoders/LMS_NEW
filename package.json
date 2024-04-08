@@ -12,6 +12,8 @@
     "@ant-design/charts": "^2.0.3",
     "@ant-design/icons": "^5.3.1",
     "@ant-design/nextjs-registry": "^1.0.0",
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
     "@heroicons/react": "^2.1.1",
     "antd": "^5.15.2",
     "axios": "^1.6.7",
