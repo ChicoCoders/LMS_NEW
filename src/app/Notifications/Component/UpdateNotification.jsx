@@ -1,16 +1,17 @@
 // UpdateNotification.jsx
-import React from 'react';
-import { Modal, Form, Input, Select } from 'antd';
+import React, { useState } from 'react';
+import { Modal, Form, Input, Select, Checkbox, Flex, Switch } from 'antd';
 const { Option } = Select;
+
 
 const UpdateNotification = ({ visible, onUpdate, onCancel, notification }) => {
     const [form] = Form.useForm();
-
+    const[enable,setEnable]=useState(true);
     return (
         <Modal
             visible={visible}
             title="Update Notification"
-            okText="Update"
+            okText="Setup"
             cancelText="Cancel"
             onCancel={onCancel}
             onOk={() => {
@@ -26,17 +27,19 @@ const UpdateNotification = ({ visible, onUpdate, onCancel, notification }) => {
             }}
         >
             <Form form={form} layout="vertical" initialValues={notification}>
-                <Form.Item name="type" label="Type" rules={[{ required: true, message: 'Please select the type!' }]}>
-                    <Select placeholder="Select Type">
-                        <Option value="New Books">New Books</Option>
-                        <Option value="New Journals">New Journals</Option>
-                        <Option value="New ebooks">New eBooks</Option>
-                        <Option value="Others">Others</Option>
-                        {/* Add more options if needed */}
-                    </Select>
-                </Form.Item>
+            <br></br> 
+            <Switch defaultChecked  onChange ={ (checked) => setEnable(checked)}/>
+                <br></br>
+                <br></br>
+              <Flex justify='space-between'>
+                <Checkbox disabled={!enable} value="book">New Books</Checkbox>
+                <Checkbox disabled={!enable} value="ebooks">New Ebboks</Checkbox>
+                <Checkbox disabled={!enable} value="journals">New Journals</Checkbox>
+                <Checkbox disabled={!enable} vlaue="others">Others</Checkbox>
+                </Flex>
+                <br></br>
                 <Form.Item name="description" label="Description" rules={[{ required: true, message: 'Please enter the description!' }]}>
-                    <Input.TextArea rows={4} placeholder="Enter Description" />
+                    <Input.TextArea disabled={!enable} rows={4} placeholder="Enter Description" />
                 </Form.Item>
             </Form>
         </Modal>
