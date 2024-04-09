@@ -1,6 +1,7 @@
 'use client'
-import { Card, Checkbox, Col, DatePicker, Form, Image, Input, InputNumber, Row, Select } from 'antd'
+import { Card, Checkbox, Col, ConfigProvider, DatePicker, Form, Image, Input, InputNumber, Row, Select } from 'antd'
 import Column from 'antd/es/table/Column';
+import moment from 'moment';
 import React from 'react'
 
 
@@ -17,48 +18,58 @@ const validateMessages = {
 };
 
 function ReturnForam(props) {
+    const myfunc = () => {
+        props.setNotification(!props.notification);
+    }
+
     return (
-        
-            <Form   form={props.form1} size='small' layout='vertical' name="nest-messages" validateMessages={validateMessages}>
-                <Row align="middle"  gutter={[10,10]}>
-                    <Col xs={24}  sm={8}>
-                        <Image
+
+     
+
+
+
+<ConfigProvider
+  theme={{
+    components: {
+      Form: {
+        itemMarginBottom:18
+        /* here is your component tokens */
+      },
+    },
+  }}
+>
+ 
+
+
+            <Form form={props.form1} size='small' layout='vertical' name="nest-messages" validateMessages={validateMessages}>
+                
+                   
+                        {/* <Image
                             src="https://5.imimg.com/data5/HX/TD/MY-14344381/nootan-physics-xii-book-500x500.png"
                             alt="Picture of the author"
-                            width="150px"
-    
-                        />
-                    </Col>
-                    <Col xs={24} sm={16}>
-                        <Row gutter={[10,10]}>
-                            <Col xs={24} sm={12}><Form.Item name='reservationId' label="Reservation Id"  initialValue={props.data1.reservationNo}><Input disabled placeholder={props.data1.reservationNo} /> </Form.Item></Col>
-                            <Col xs={24} sm={12}><Form.Item name="resourceId" label="Resource/ISBN" initialValue={props.data1.resource}><Input disabled placeholder={props.data1.resource} /></Form.Item></Col>
-                        </Row>
-                        <Row gutter={[10,10]}>
-                        <Col xs={24} sm={12}><Form.Item name="returnid" label="Return by" rules={[{ required: true }]}><Input/></Form.Item></Col>
-                            <Col xs={24} sm={12}><Form.Item name="returnDate" label="Return Date" rules={[{ required: true }]}><DatePicker /></Form.Item></Col>
-                        </Row>
-                        <Row gutter={[10,10]}>
-                            <Col xs={24} sm={12}><Form.Item name='penalty' label="Penalty"><InputNumber /></Form.Item></Col>
-                        </Row>
-                        <Row gutter={[10,10]}>
-                            <Col xs={24} sm={24}><Form.Item><Checkbox checked> Send notification to user</Checkbox></Form.Item></Col>
-                        </Row>
-                    </Col>
+                            width="150px"/> */}
 
-                </Row>
+                        
+                        
+                           <Form.Item name='reservationId' label="Reservation Id" initialValue={props.data1.reservationNo}><Input size='medium' disabled placeholder={props.data1.reservationNo} /> </Form.Item>
+                            <Form.Item name="resourceId" label="Resource/ISBN" initialValue={props.data1.resource}><Input size='medium' disabled placeholder={props.data1.resource} /></Form.Item>
+                        
+                            <Form.Item name="returnid" label="Return by" rules={[{ required: true }]}><Input size='medium' /></Form.Item>
+                            <Form.Item name="returndate" label="Return Date" rules={[{ required: true }]}>
 
-
-
-
-
-
-
-
-
-
+                               
+                                    <DatePicker   size='medium '  disabledDate={(current) => current.isAfter(moment())}  onChange={(e, s) => props.date(s)} />
+                               
+                            </Form.Item>
+                            
+                            <Form.Item name='penalty' label="Penalty"><InputNumber size='medium'/></Form.Item>
+                    
+                      <Form.Item name='notification'><Checkbox checked={props.notification} onChange={(e) => { myfunc() }} > Send notification to user</Checkbox></Form.Item>
+        
             </Form>
-       
+            
+</ConfigProvider>
+     
     )
 }
 

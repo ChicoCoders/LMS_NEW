@@ -1,11 +1,8 @@
 'use client'
 import { Button, Checkbox, Col, Form, Image, Input, InputNumber, Row, Select,DatePicker} from 'antd'
-import FormItem from 'antd/es/form/FormItem'
-import Password from 'antd/es/input/Password'
-import axios from 'axios';
+
 import React, { useState } from 'react'
-import UploadImage from './myComponent/UploadImage'
-import UploadURL from './myComponent/UploadURL'
+
 import TextArea from 'antd/es/input/TextArea';
 
 function ResourcesAddForm(props) {
