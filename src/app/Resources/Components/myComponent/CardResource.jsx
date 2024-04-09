@@ -4,20 +4,28 @@ import { Card, Space, Col, Row, Image, Flex, Button, ConfigProvider } from 'antd
 import { UserDeleteOutlined, MoreOutlined } from '@ant-design/icons';
 import myLocalImage from './Book.jpg';
 import Link from 'next/link';
+import IssueModal from '../../../Reservations/Component/IssueModal';
+
+
 
 
 function CardResource(props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const showModal = () => {
-    setIsModalOpen(true);
+  
+    setOpen(true);
   };
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  
 
   return (
 
     <Col >
     <ConfigProvider
-    theme={{
+  theme={{
     token: {
       colorBorderSecondary:"rgba(0 ,33, 64,0.2)",
       borderRadiusLG:10
@@ -41,39 +49,23 @@ function CardResource(props) {
             
             <li>{props.dataset.isbn.length < 14 ? props.dataset.isbn: props.dataset.isbn.substring(0, 14) + "..."}</li>
             <li>{props.dataset.author.length < 14 ? props.dataset.author: props.dataset.author.substring(0, 14) + "..."}</li>
-            <li>No of Books :{props.dataset.noOfBooks}</li>
-              <Flex style={{ fontWeight: 600, }} justify='space-between'>
-              <Button onClick={showModal}>More...</Button>
+            <li>No of Books : {props.dataset.numberOfBooks}</li>
+            <Flex style={{ fontWeight: 600, }} justify='space-between'>
+              <div><Link href="/Resources/About">More...</Link></div>
               <Link href="">Edit</Link>
             </Flex>
-            <Button  style={{ background: '#2395EF', color: 'white' }} size="small" block>Issue</Button>
+            <Button  type='primary' size="small" block onClick={showModal}>Issue</Button>
           </Col>
 
         </Row>
       </Card>
       
 </ConfigProvider>
+
+<IssueModal open={open} openFuntion={showModal} close={closeModal} data={props.dataset.isbn} />
       </Col>
 
 
-    // <Space
-    //   direction="horizontal"
-    //   size="middle"
-    //   style={{
-    //     display: 'flex',
-    //     width:'930px',
-    //     height:'600px',
-    //     boxShadow:'0px 12px 12px 0px #00000040',
-    //     border: '0.3px solid #00000080 #00000040'
-
-    //   }}
-    // >
-    //   <Col md={18} sm={24} xs={24}>
-    //   </Col>    
-    //   <Col md={40} sm={400} xs={400} layout="vertical">
-
-
-    //   </Col>
 
   )
 }
