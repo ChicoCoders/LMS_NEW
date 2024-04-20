@@ -1,11 +1,12 @@
 'use client'
 import { Button } from 'antd'
 import React from 'react'
-import NotificationCard from "./NotificationCard";
+import NotificationCard1 from "./NotificationCard1";
 
 function NotificationTable() {
   return (
-      <NotificationCard />
+       // <NotificationCard1 />
+      <NotificationCard1 />
   )
 }
 
