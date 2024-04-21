@@ -1,11 +1,63 @@
-import React, { useState } from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, Form, Input, Select, DatePicker } from 'antd';
+import { UserContext } from '../../Context/Context';
+import { HubConnectionBuilder,LogLevel } from '@microsoft/signalr';
 const { Option } = Select;
 
-const AddNotification = ({ visible, onCreate, onCancel }) => {
+const AddNotification = ({ visible, onCreate, onCancel,fetchData }) => {
   const [form] = Form.useForm();
-  const[respient,setrecepient]=useState("student")
-  console.log(respient)
+  const[respient,setrecepient]=useState("all")
+  const [messages, setMessages] = useState([]);
+   
+    const [connection, setConnection] = useState(null);
+    const user=React.useContext(UserContext).user;
+    
+    useEffect(() => {
+      const connect = new HubConnectionBuilder()
+        .withUrl("http://localhost:5164/Hubs/MyHub")
+        .withAutomaticReconnect()
+        .configureLogging(LogLevel.Information)
+        .build();
+      setConnection(connect);
+      connect
+        .start()
+        .then(() => {
+         
+          connect.on("ReceiveMessage", (sender, content, sentTime) => {
+            setMessages((prev) => [...prev, { sender, content, sentTime }]);
+          });
+          connection.invoke("JoinRoom","all");
+          connection.invoke("JoinRoom",user.userName);
+          connection.invoke("JoinRoom",user.userType);
+          connect.invoke("RetrieveMessageHistory");
+        })
+        .catch((err) =>
+          console.error("Error while connecting to SignalR Hub:", err)
+        );
+
+      
+      return () => {
+        if (connection) {
+          connection.off("ReceiveMessage");
+        }
+      };
+    }, [user]);
+
+    
+
+    const sendMessage = async () => {
+      if (connection) {
+        await connection.send("SendMessage", 
+        {userName :respient=="other"?form.getFieldValue('userId'):respient,
+        subject : "New Announcement",
+        description:form.getFieldValue('description') });
+      }
+      fetchData();
+      onCancel();
+    };
+
+  
   return (
     <Modal
       visible={visible}
@@ -17,8 +69,8 @@ const AddNotification = ({ visible, onCreate, onCancel }) => {
         form
           .validateFields()
           .then((values) => {
+            sendMessage();
             form.resetFields();
-            onCreate(values);
           })
           .catch((info) => {
             console.log('Validate Failed:', info);
@@ -38,7 +90,7 @@ const AddNotification = ({ visible, onCreate, onCancel }) => {
         </Form.Item>
         {
           (respient=="other")?
-          <Form.Item name="userId" label="User Name" rules={[{ required: true, message: 'Please select username!' }]}>
+          <Form.Item name="userId" label="User Name" rules={[{ required: true, message: 'Please select username!' }]} >
           <Input placeholder="Enter User Name" />
         </Form.Item>
         :<div></div>

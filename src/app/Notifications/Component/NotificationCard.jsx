@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Col, Button, Select, Tooltip, Flex } from 'antd';
+import { Card, Row, Col, Button, Select, Tooltip, Flex, Pagination, Popconfirm } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 const { Option } = Select;
 import Notifications from './Notifications';
@@ -8,6 +8,7 @@ import AddNotification from './AddNotifications';
 import UpdateNotification from './UpdateNotification';
 import RemindNotification from './RemindNotification';
 import axios from 'axios';
+import axioinstance from '../../Instance/api_instance';
 
 
 
@@ -23,7 +24,13 @@ function NotificationCard() {
     const [visibleRemind, setVisibleRemind] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [selectedNotification, setSelectedNotification] = useState(null);
+    const[page,changepage]=useState(1);
+    const[size,changeSize]=useState(0);
 
+    const changingPage =(pnumber,size)=>{
+          changepage(pnumber);
+    }
+  
 
 
     const showRemindModal = () => {
@@ -74,10 +81,14 @@ function NotificationCard() {
         setSelectedNotification(null);
     };
 
-    const handleRemove = (id) => {
-        const newNotifications = notifi.filter((notify) => notify.id !== id);
-        notification = newNotifications;
-        setNotifications(newNotifications);
+    const handleRemove = async(id) => {
+        try{
+        const response=await axioinstance.delete(`Notification/RemoveNotification?id=${id}`);
+        console.log(response);
+        fetchData();
+        }catch(e){
+            console.log(e);
+        }
     };
     const handleSearch = (value) => {
         setSearchText(value);
@@ -105,10 +116,10 @@ function NotificationCard() {
         //etLoading(true); // Set loading to true while fetching
         try {
             // Sending POST request to fetch data based on search parameters
-            const response = await axios.get('http://localhost:5164/api/Notification/GetNotificatons?username=all');
-            const data = response.data; // Extracting data from response
+            const response = await axioinstance.get('Notification/GetNotificatons?username=all');
+            const data = response.data.reverse(); // Extracting data from response
+            changeSize(data.length);
             //setLoading(false); // Setting loading to false after data is fetched
-
             setItems(data); // Updating items state with fetched data
         } catch (error) {
             // setLoading(false); // Setting loading to false if there's an error
@@ -116,7 +127,9 @@ function NotificationCard() {
         }
     }
     useEffect(() => { fetchData(); }, []);
+
     console.log(notifications)
+    console.log(size);
     return (
 
         <div>
@@ -132,7 +145,7 @@ function NotificationCard() {
                     <Button style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff' }} onClick={showAddModal}>
                         New
                     </Button>
-                    <AddNotification visible={visibleAdd} onCreate={handleAdd} onCancel={handleCancel} />
+                    <AddNotification visible={visibleAdd} onCreate={handleAdd} onCancel={handleCancel} fetchData={fetchData}/>
                     {selectedNotification && (
                         <UpdateNotification visible={visibleUpdate} onUpdate={handleUpdate} onCancel={handleCancel} notification={selectedNotification} />
                     )}
@@ -178,11 +191,11 @@ function NotificationCard() {
                 </Col>
             </Row>
                         <Flex  vertical align="center" >
-            {notifications.map((notification) => (
+            {notifications.slice((page-1)*9,(page-1)*9+ 9).map((notification) => (
                 <Card
                     key={1}
                     style={{
-                        width: '90%',
+                        width: '80%',
                          margin: '15px 0',
                         // backgroundColor: '#f0f0f0',
                         // borderRadius: '5px',
@@ -211,31 +224,39 @@ function NotificationCard() {
                         </Col >
                         <Col span={24}>
                             
-                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <div>
-                                        <p>{notification.description}</p>
-                                    </div>
-                                </div>
+                        <div style={{ wordWrap: 'break-word' }}>
+        <p>{notification.description}</p>
+    </div>
+                                  
                         </Col>
                         <Col span={24} >
                             <Flex justify="end">
                             
+                            <Popconfirm
+                                    title="Remove the Notification"
+                                    description="Are you sure to remove this notification?"
+                                    okText="Yes"
+                                    cancelText="No"
+                                    onConfirm={() => handleRemove(notification.id)}
+                                >
                                     <Button
                                         danger
                                         type='primary'
                                         style={{
                                             boxShadow: '0 4px 8px 0 rgba(0,0,0,0.15)',
                                         }}
-                                    // onClick={() => handleRemove(notification.id)}
+                                        
                                     >
                                         Remove
                                     </Button>
+                                    </Popconfirm>
                                     </Flex>  
                            
                     </Col>
                     </Row>
                 </Card>
             ))}
+             <Pagination defaultCurrent={1} total={50} onChange={changingPage} pageSize={9} />
             </Flex>
         </div>
     );
