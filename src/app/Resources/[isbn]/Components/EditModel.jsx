@@ -32,50 +32,52 @@ function EditModal(props) {
     form.setFieldsValue({
       isbn: props.data.isbn,
       title: props.data.title,
-      auther: props.data.author,
+      author: props.data.author,
       type: props.data.type,
       quantity: props.data.total,
       price: props.data.price,
       description: props.data.description,
-      pagecount: props.data.pages,
-      addedOn: props.data.addedon,
+      pages: props.data.pages,
+      addededOn: props.data.addedon,
       location: props.data.location,
-      addedByID: props.data.addedByID,
-      imagePath: props.data.imagePath,
-      url: props.data.url
+      addedByID: 'sasindu',
+      imagePath: 'hello.lk',
+      url: 'hello.lk'
     });
     
   }, [props.data, form]);
-
+  
+    
   const handleInputChange = (fieldName, value) => {
-    console.log(props.data.isbn);
     form.setFieldsValue({ [fieldName]: value });
     console.log(props.data.isbn);
   };
-  const handleFormSubmit =async()=>{
-    try{
-      console.log(props.data.isbn);
-      const formData = form.getFieldsValue();
-      console.log(formData.isbn);
-      console.log(formData);
+  const handleFormSubmit= async ()=>{
+    const formData = form.getFieldsValue();
+    console.log(formData.addedByID);
+    console.log(formData);
 
-        setLoading(true);
-        const response = await axios.put('http://localhost:5164/api/Resource/EditResource',formData);
-        console.log('Data updated successfully:', response.isbn);
+    setLoading(true);
+    console.log(formData.addedByID);
+    axios.put('http://localhost:5164/api/Resource/EditResource',formData)
+
+     .then((response)=>{
         setTimeout(() => {
             setLoading(false);
-            props.closeModal();
-            form.resetFields();
-            props.fetchData()
-            success();
+            // showSuccessModal();
+            props.fetchData();
         }, 3000);
-        
-    }catch(error){
+        alert(response.data.isbn);
+     },(error)=>{
+      
         setLoading(false);
-        //console.log("sadas");
-        errormsg();
-    }
-}
+        console.log(error);
+     alert(error);}
+     
+    )
+             
+    
+};
     return (
         <ConfigProvider
     theme={{
@@ -132,7 +134,7 @@ function EditModal(props) {
                             <Col xs={24} sm={18}><Form.Item name="title" label="Title" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("title", e.target.value)}/></Form.Item></Col>
                         </Row>
                         <Row gutter={[30,10]}  >
-                            <Col xs={24} sm={18}><Form.Item name="auther" label="Auther" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("author", e.target.value)}/></Form.Item></Col>
+                            <Col xs={24} sm={18}><Form.Item name="author" label="Auther" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("author", e.target.value)}/></Form.Item></Col>
                         </Row>
                         <Row gutter={[30,10]} > 
                             <Col xs={24} sm={9}><Form.Item name="type" label="Type" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("type", e.target.value)}/></Form.Item></Col>
@@ -140,13 +142,16 @@ function EditModal(props) {
                         </Row>
                         <Row gutter={[30,10]}>
                             <Col xs={24} sm={9}><Form.Item name='location' label="Location" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("location", e.target.value)}/></Form.Item></Col> 
-                            <Col xs={24} sm={12}><Form.Item name='addedOn' label="Added On" rules={[{ required: true }]}></Form.Item></Col>
+                            <Col xs={24} sm={12}><Form.Item name='addededOn' label="Added On" rules={[{ required: true }]}></Form.Item></Col>
                         </Row>
                         <Row gutter={[0,0]}>
                             <Col xs={24} sm={7}><Form.Item name='quantity' label="Quantity" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("quantity", e.target.value)}/></Form.Item></Col>
                             <Col xs={24} sm={7}><Form.Item name="price" label="Price" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("price", e.target.value)}/></Form.Item></Col>
-                            <Col xs={24} sm={7}><Form.Item name="pagecount" label="No of pages" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("pagecount", e.target.value)}/></Form.Item></Col>
+                            <Col xs={24} sm={7}><Form.Item name="pages" label="No of pages" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("pagecount", e.target.value)}/></Form.Item></Col>
                         </Row>
+                        <Col xs={24} sm={7} style={{ display: 'none' }}><Form.Item name="addedByID" label="addedByID" rules={[{ required: true }]}></Form.Item></Col>
+                        <Col xs={24} sm={7} style={{ display: 'none' }}><Form.Item name="imagePath" label="imagePath" rules={[{ required: true }]}></Form.Item></Col>
+                        <Col xs={24} sm={7} style={{ display: 'none' }}><Form.Item name="url" label="url" rules={[{ required: true }]}></Form.Item></Col>
                         
                     </Col>
                     <Col xs={24} sm={9} >

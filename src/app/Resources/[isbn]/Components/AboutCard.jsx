@@ -7,7 +7,7 @@ import Card from 'antd/es/card/Card'
 import Link from 'next/link';
 import React, { useState,useEffect} from 'react'
 import EditModal from './EditModel'
-import EditModall from './EditModell'
+import EditModall from './EditModel'
 //import ResourcesAddForm from './ResourcesAddForm';
 import { HomeOutlined,EditOutlined,DeleteOutlined ,LeftCircleOutlined} from '@ant-design/icons';
 import Title from 'antd/es/typography/Title';
