@@ -30,14 +30,12 @@ const PageRoot = [
     },
   ]
 
-function page() {
-  
+function page({params}) {
+
   return (
     <div>
-      
-    
-       <AboutCard/>
        
+       <AboutCard reservationId={params.reservationId}/>
        
     </div>
   )

@@ -1,8 +1,8 @@
 'use client'
-import ResultTable from '../../Component/ResultTable'
+import ResultTable from '../Component/ResultTable'
 import React, { useEffect, useState } from 'react'
-import { UserDeleteOutlined ,MoreOutlined} from '@ant-design/icons';
-import { Button, Space, Spin, Tag } from 'antd';
+import { UserDeleteOutlined, MoreOutlined } from '@ant-design/icons';
+import { Button, ConfigProvider, Space, Spin, Tag } from 'antd';
 import ReturnModal from './ReturnModal'
 import Link from 'next/link';
 import SeachReservations from './SeachReservations';
@@ -15,10 +15,10 @@ import axioinstance from '../../Instance/api_instance';
 
 
 function SearchResult() {
-  
- 
-  const token=Cookies.get('jwt');
-  const[recordData,setRecord]=useState([]);
+
+
+  const token = Cookies.get('jwt');
+  const [recordData, setRecord] = useState([]);
   const [open, setOpen] = useState(false);
   const [keyword, setKeyword] = useState(""); // State for keyword
   const [status, setStatus] = useState("*"); // State for status
@@ -30,45 +30,45 @@ function SearchResult() {
     setRecord(record);
     setOpen(true);
   };
-  const closeModal=()=>{
+  const closeModal = () => {
     setOpen(false);
   };
- 
+
 
   const columns = [
     {
-        title: 'Reservation',
-        dataIndex: 'reservationNo',
-        key: 'reservationNo',
-      },
-      {
-        title: 'Resource',
-        dataIndex: 'resource',
-        key: 'resource',
-      },
+      title: 'Reservation',
+      dataIndex: 'reservationNo',
+      key: 'reservationNo',
+    },
+    {
+      title: 'Resource',
+      dataIndex: 'resource',
+      key: 'resource',
+    },
     {
       title: 'User',
       dataIndex: 'userName',
       key: 'userName',
     },
     {
-        title: 'User Name',
-        dataIndex: 'borrowerName',
-        key: 'borrowerName',
-      },
-      {
-        title: 'Due Date',
-        dataIndex: 'dueDate',
-        key: 'dueDate',
-      },
-     
+      title: 'User Name',
+      dataIndex: 'borrowerName',
+      key: 'borrowerName',
+    },
+    {
+      title: 'Due Date',
+      dataIndex: 'dueDate',
+      key: 'dueDate',
+    },
+
     {
       title: 'Action',
       dataIndex: '',
       key: 'x',
-      render: () => (
+      render: (status,record) => (
         <Space size="large">
-        <Link href="/Reservations/About"><Button type='primary'  size='small' shape='round'>More</Button></Link>
+          <Link href={`/Reservations/${record.reservationNo}`}><Button type='primary' size='small' shape='round'>More</Button></Link>
         </Space>
       )
     },
@@ -76,12 +76,12 @@ function SearchResult() {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status,record) => (status=="borrowed"?<Button onClick={() => showModal(record)} type='primary'  size='small' shape='round'>Borrowed</Button>:(status=="due"?<Button type='primary' danger size='small' shape='round'>Overdue</Button>:<Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),
+      render: (status, record) => (status == "borrowed" ? <Button onClick={() => showModal(record)} type='primary' size='small' shape='round'>Borrowed</Button> : (status == "due" ? <Button type='primary' danger size='small' shape='round'>Overdue</Button> : <Button type='primary' disabled size='small' shape='round'>Reserved</Button>)),
     },
-  
+
   ];
 
- 
+
   async function fetchData(type) { // Function to fetch data from server
     setLoading(true); // Set loading to true while fetching
     try {
@@ -103,16 +103,31 @@ function SearchResult() {
   }
 
   const search = () => {
-    fetchData(type);} // Function to trigger search
+    fetchData(type);
+  } // Function to trigger search
 
   useEffect(() => { fetchData("*"); }, []); // Fetch data on component mount
 
   return (
-    
+
     <div>
-       <SeachReservations func1={setStatus} func2={setType} func3={setKeyword} search={search} />
-       <ResultTable loading={loading} nodata={false} dataset={status === "*" ? items : items.filter(book => book.status === status)} columnset={columns} pagination={{pageSize:20}}/>
-      <ReturnModal fetchData={fetchData} type={type}  open={open} openFuntion={showModal} close={closeModal} recordData={recordData}/>
+      <SeachReservations func1={setStatus} func2={setType} func3={setKeyword} search={search} />
+      <ResultTable loading={loading} nodata={false} dataset={status === "*" ? items : items.filter(book => book.status === status)} columnset={columns} pagination={{ pageSize: 20 }} />
+      <ConfigProvider
+        theme={{
+          
+          token: {
+            // borderRadius: 0,
+            // borderRadiusLG: 0,
+            // borderRadiusSM: 0
+            /* here is your global tokens */
+          }
+          
+
+        }}
+      >
+        <ReturnModal fetchData={fetchData}  open={open} openFuntion={showModal} close={closeModal} recordData={recordData} />
+      </ConfigProvider>
     </div>
   )
 }

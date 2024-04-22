@@ -8,18 +8,20 @@ import myLocalImage from './Book.jpg';
 //import EditModal from '../EditModal'
 import Link from 'next/link';
 import IssueModal from '../../../Reservations/Component/IssueModal';
+
 import AboutCard from '../../[isbn]/Components/AboutCard';
+
+
 
 
 
 
 function CardResource(props) {
   const [open, setOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
   const showModal = () => {
   
     setOpen(true);
+
   };
   const closeModal = () => {
     setOpen(false);
@@ -33,11 +35,12 @@ function CardResource(props) {
     };
 };
 
+
   return (
 
     <Col >
     <ConfigProvider
-    theme={{
+  theme={{
     token: {
       colorBorderSecondary:"rgba(0 ,33, 64,0.2)",
       borderRadiusLG:0
@@ -64,11 +67,13 @@ function CardResource(props) {
             
             <li>{props.dataset.isbn.length < 14 ? props.dataset.isbn: props.dataset.isbn.substring(0, 14) + "..."}</li>
             <li>{props.dataset.author.length < 14 ? props.dataset.author: props.dataset.author.substring(0, 14) + "..."}</li>
+
             <li>No of Books: {props.dataset.noOfBooks}</li>
             <Flex style={{ fontWeight: 600, }} justify='space-between'>
             {/* <div onClick={showModal1} style={{color:'primary'}}>More...</div> */}
             <Link href={`/Resources/${props.dataset.isbn}`}>More..</Link>
               
+
             </Flex>
             <Button  type='primary' size="small" block onClick={showModal}>Issue</Button>
           </Col>
@@ -77,10 +82,12 @@ function CardResource(props) {
       </Card>
       
 </ConfigProvider>
+
 {/* <AboutCardModel open={open1} openFuntion={showModal1} close={closeModal1} data={props.dataset.isbn}/> */}
 <IssueModal open={open} openFuntion={showModal} close={closeModal} data={props.dataset.isbn} />
 {/* <EditModal open={open3} openFuntion={showModal3} close={closeModal3} data={props.dataset}/> */}
       </Col>
+
 
 
 

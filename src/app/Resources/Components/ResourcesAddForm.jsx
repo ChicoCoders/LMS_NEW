@@ -1,4 +1,5 @@
 'use client'
+
 import { Button, Checkbox, Col, Form, Image, Input, InputNumber, Row, Select,DatePicker,ConfigProvider} from 'antd'
 import UploadImage from './myComponent/UploadImage'
 import React, { useState } from 'react'

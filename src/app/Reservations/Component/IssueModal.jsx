@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, Flex, Form, Modal, Row } from 'antd'
+import { Button, Col, Flex, Form, Drawer, Row,Modal } from 'antd'
 import React, { useState } from 'react'
 import IssueForam from './IssueForam'
 import axios from 'axios';
@@ -8,7 +8,9 @@ import axios from 'axios';
 
 function IssueModal(props) {
     const [loading, setLoading] = useState(false);
+    const[date,setDate]=useState("");
     const [form] = Form.useForm();
+  
    
 
     const showSuccessModal = () => {
@@ -34,7 +36,7 @@ function IssueModal(props) {
              isbn: String(form.getFieldValue('resourceId')),
              borrowerID:String(form.getFieldValue('borrowerId')) ,
              issuedID:String (form.getFieldValue('issuerId')),
-             dueDate: "2021.03.05"
+             dueDate:  date 
           });
           const data = response.data; // Extracting data from response
           setTimeout(() => {
@@ -76,37 +78,31 @@ function IssueModal(props) {
     return (
         <div>
 
-            <Modal
+            <Drawer
                 mask={true}
                 maskClosable={false}
-
+                
+               
                 style={{ maxWidth: '95%' }}
-                width='auto'
-                open={props.open1}
+                width='350px'
+                open={props.open}
                 centered
                 title="Issue Book"
                 onOk={handleOk}
-                onCancel={handleCancel}
+                onClose={handleCancel}
                 footer={[
-                    <Row gutter={[10]}>
-                        <Col xs={12}>
-                            <Button block size='small' shape='round' key="submit" type="primary" loading={loading} onClick={handleOk}>
+                    
+                            <Button block size='medium'  key="submit" type="primary" loading={loading} onClick={handleOk}>
                                 Issue
                             </Button>
-                        </Col>
-                        <Col xs={12}>
-                            <Button block size='small' shape='round' key="back" onClick={handleCancel}>
-                                Cancel
-                            </Button>
-                        </Col>
-                    </Row>
-
+                        
                 ]}
 
             >
                 
-                <IssueForam form1={form} data1={props.data1} />
-            </Modal>
+                
+                <IssueForam date={setDate} form1={form} data={props.data} />
+            </Drawer>
 
         </div>
     )
