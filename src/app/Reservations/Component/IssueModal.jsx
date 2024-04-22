@@ -1,46 +1,49 @@
 'use client'
-import { Button, Col, Flex, Form, Modal, Row } from 'antd'
+import { Button, Col, Flex, Form, Drawer, Row,Modal, message } from 'antd'
 import React, { useState } from 'react'
 import IssueForam from './IssueForam'
 import axios from 'axios';
+import axioinstance from '../../Instance/api_instance';
 
 
 
 function IssueModal(props) {
     const [loading, setLoading] = useState(false);
+    const[date,setDate]=useState("");
+    const [email, setEmail] = useState(true);
     const [form] = Form.useForm();
-   
+    const [messageApi, contextHolder] = message.useMessage();
 
-    const showSuccessModal = () => {
-        Modal.success({
-            title: 'Success',
-            content: 'Successfully Issue the Resource',
-        });
+
+    const successModal = () => {
+      messageApi.open({
+        type: 'success',
+        content: 'Book issued successfully',
+      });
     };
-
-    const errorModal = (p) => {
-        Modal.error({
-          title: 'Issue Book Unseccessfull',
-          content: p,
-        });
-      };
+    const errorModal = (e) => {
+      messageApi.open({
+        type: 'error',
+        content: e,
+      });
+    };
 
 
     async function fetchData() { // Function to fetch data from server
         try {
           // Sending POST request to fetch data based on search parameters
-          
-          const response = await axios.post('http://localhost:5164/api/Reservation/Issuebook', {
+          const response = await axioinstance.post('Reservation/Issuebook', {
              isbn: String(form.getFieldValue('resourceId')),
              borrowerID:String(form.getFieldValue('borrowerId')) ,
              issuedID:String (form.getFieldValue('issuerId')),
-             dueDate: "2021.03.05"
+             dueDate:  date ,
+             email:email
           });
           const data = response.data; // Extracting data from response
           setTimeout(() => {
             setLoading(false);
            // fetchData(form);
-            showSuccessModal();
+            successModal();
             props.close();
             form.resetFields();
         }, 3000);
@@ -76,37 +79,31 @@ function IssueModal(props) {
     return (
         <div>
 
-            <Modal
+            <Drawer
                 mask={true}
                 maskClosable={false}
-
+                
+               
                 style={{ maxWidth: '95%' }}
-                width='auto'
-                open={props.open1}
+                width='350px'
+                open={props.open}
                 centered
                 title="Issue Book"
                 onOk={handleOk}
-                onCancel={handleCancel}
+                onClose={handleCancel}
                 footer={[
-                    <Row gutter={[10]}>
-                        <Col xs={12}>
-                            <Button block size='small' shape='round' key="submit" type="primary" loading={loading} onClick={handleOk}>
+                    
+                            <Button block size='medium'  key="submit" type="primary" loading={loading} onClick={handleOk} >
                                 Issue
                             </Button>
-                        </Col>
-                        <Col xs={12}>
-                            <Button block size='small' shape='round' key="back" onClick={handleCancel}>
-                                Cancel
-                            </Button>
-                        </Col>
-                    </Row>
-
+                        
                 ]}
 
             >
                 
-                <IssueForam form1={form} data1={props.data1} />
-            </Modal>
+                {contextHolder}
+                <IssueForam date={setDate} form1={form} data={props.data} setEmail={setEmail} email={email}/>
+            </Drawer>
 
         </div>
     )

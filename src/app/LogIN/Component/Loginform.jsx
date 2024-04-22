@@ -3,6 +3,7 @@ import { useForm} from 'antd/es/form/Form'
 import axios from 'axios';
 import React from 'react'
 import { useRouter } from 'next/navigation'; 
+import { redirect } from 'next/navigation'
 
 
 
@@ -24,9 +25,11 @@ function Loginform() {
             //   console.log(jwtToken);
             //   cookies.set('jwt', jwtToken, { path: '/', httpOnly: true });
               console.log(response.data);
-              router.push('/Dashboard');
+              //redirect(`/Dashboard`)
+              router.push('/Dashboard', undefined, { shallow: false });
+             // router.push('/Dashboard',undefined, { shallow: false });
         }catch(error){
-            console.log("error")
+            console.log(error)
             router.push('/LogIN');
         }
         }

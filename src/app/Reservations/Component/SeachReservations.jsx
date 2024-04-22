@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import Search from 'antd/es/input/Search';
 
+
 // Extend dayjs with customParseFormat plugin
 dayjs.extend(customParseFormat);
 
@@ -36,7 +37,8 @@ function SearchReservations({ func1, func2, func3, search }) {
     const handleKeywordChange = (e) => {
         func3(e.target.value);
     }
-
+  
+    
     return (
         <div>
             <Row style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
@@ -44,7 +46,7 @@ function SearchReservations({ func1, func2, func3, search }) {
                     <Flex wrap='wrap' align='center'>
                         <Radio.Group value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
                             <Radio.Button value="*">All</Radio.Button>
-                            <Radio.Button value="due">Due</Radio.Button>
+                            <Radio.Button value="overdue">Due</Radio.Button>
                             <Radio.Button value="borrowed">Borrowed</Radio.Button>
                             <Radio.Button value="reserved">Reserved</Radio.Button>
                         </Radio.Group>
@@ -52,7 +54,9 @@ function SearchReservations({ func1, func2, func3, search }) {
                     </Flex>
                 </Col>
                 <Col xs={24} sm={10}>
+                <Flex justify='right'>
                     <Space.Compact>
+                        
                         <Select
                             defaultValue="Type"
                             style={{ width: 100 }}
@@ -82,6 +86,7 @@ function SearchReservations({ func1, func2, func3, search }) {
                             onChange={handleKeywordChange}
                         />
                     </Space.Compact>
+                    </Flex>
                 </Col>
             </Row>
         </div>

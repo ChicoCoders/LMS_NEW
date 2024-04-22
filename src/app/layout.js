@@ -1,5 +1,7 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import Navigations from './Component/Navigations';
+import { ConfigProvider } from 'antd';
+
 
 
 export const metadata = {
@@ -12,9 +14,28 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body style={{margin:0}}>
       <AntdRegistry> 
+      <ConfigProvider
+        theme={{
+          components:{
+            Button:{
+             
+                colorPrimary: '#001529',
+                
+              
+            },
+        }
+        ,
+        token:{
+          colorPrimary:'#001529'
+        }}}>
+         
         <Navigations>
+        
           {children}
+          
         </Navigations>
+        
+        </ConfigProvider>
         </AntdRegistry>
         </body>
     </html>
