@@ -145,24 +145,20 @@
 // }
 // export default AddNotification1;
 
-
-
-
-
-
-
 import React, { useState } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 
 const { TextArea } = Input;
 
-const AddNotification1 = () => {
+const AddNotification1 = ({addingNotification}) => {
     const [visible, setVisible] = useState(false);
     const [form] = Form.useForm();
 
     const showModal = () => {
         setVisible(true);
     };
+
+
 
     const handleCancel = () => {
         setVisible(false);
@@ -174,7 +170,11 @@ const AddNotification1 = () => {
         form.resetFields(); // Reset the form fields
         form.setFieldsValue({ Content: '' });
         setVisible(false); // Hide the modal after form submission
+      //  console.log(values.To,values.Content)
+       // addingNotification(values.To,values.Content);
+
     };
+
 
     return (
         <>
@@ -215,24 +215,11 @@ const AddNotification1 = () => {
                                             <Form.Item label="Content" name="Content">
                                                 <Input.TextArea rows={4} placeholder="write your notice here" />
                                             </Form.Item>
-                    {/*<Form.Item*/}
-                    {/*    label="Username"*/}
-                    {/*    name="username"*/}
-                    {/*    rules={[{ required: true, message: 'Please input your username!' }]}*/}
-                    {/*>*/}
-                    {/*    <Input />*/}
-                    {/*</Form.Item>*/}
 
-                    {/*<Form.Item*/}
-                    {/*    label="Password"*/}
-                    {/*    name="password"*/}
-                    {/*    rules={[{ required: true, message: 'Please input your password!' }]}*/}
-                    {/*>*/}
-                    {/*    <Input.Password />*/}
-                    {/*</Form.Item>*/}
+
 
                     <Form.Item style={{ textAlign: 'right' }}>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit"  >
                             Send
                         </Button>
                     </Form.Item>

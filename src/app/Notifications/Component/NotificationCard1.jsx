@@ -26,6 +26,32 @@ const handleMenuClick = (e) => {
 
 
 function NotificationCard1() {
+    //const [notifications, setNotifications] = useState(Notifications);
+
+    // const removeNotification = (id) => {
+    //     console.log(id);
+    //     setNotifications(notifications.filter((notification) => notification.id !== id));
+    // }
+
+    // const addingNotification=(to,content) =>{
+    //    // console.log(to,content);
+    //     const newNotification = {
+    //         id: notifications.length + 1,
+    //         to: to,
+    //         date: '2021-09-01',
+    //         type: 'Special Notice',
+    //         description: content,
+    //
+    //     };
+    //     setNotifications([...notifications, newNotification]);
+    // }
+
+    const [notifications, setNotifications] = useState(Notifications);
+    const removeNotification = (id) => {
+        console.log(id);
+        setNotifications(notifications.filter((notification) => notification.id !== id));
+    }
+
     const handleSelectChange = value => {
         console.log(value); // handle the selection change
     };
@@ -89,9 +115,19 @@ function NotificationCard1() {
         </Flex>
 
             <div style={{marginTop:'30px'}}>
-                {Notifications.map((notification) => (
+                {notifications.map((notification) => (
                     <div>
-                        <NotificationRaw key={notification.id} {...notification} />
+                        <NotificationRaw
+                            key={notification.id}
+                            id={notification.id}
+                            to={notification.to}
+                            date={notification.date}
+                            type={notification.type}
+                            description={notification.description}
+                            removeNotification={removeNotification}
+                        />
+
+
 
                     </div>
                 ))}

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row,Button } from 'antd';
-function NotificationRaw(props) {
+function NotificationRaw({id,to,date,type,description,removeNotification}) {
+    const handleRemove = (id) => {
+        removeNotification(id);
+    }
 return(
+
     // <div>
     //     {props.id}
     //     {props.to}
@@ -30,19 +34,19 @@ return(
             marginLeft: '25px',
         }}>
         <Row >
-            <Col span={8}><strong>{props.id}</strong>{props.to}</Col>
+            <Col span={8}><strong>{id}</strong>{to}</Col>
             <Col span={8} offset={19}>
-                {props.date}
+                {date}
             </Col>
         </Row>
 
         <Row style={{ marginBottom: '10px' }}>
-            <Col span={8} style={{ fontWeight: 'bold', marginLeft: '35px' }}>{props.type}</Col>
+            <Col span={8} style={{ fontWeight: 'bold', marginLeft: '35px' }}>{type}</Col>
         </Row>
         <Row style={{ marginBottom: '10px' }}>
-            <Col span={19} style={{ marginLeft: '35px' }}> {props.description}</Col>
+            <Col span={19} style={{ marginLeft: '35px' }}> {description}</Col>
             <Col span={8} offset={21}>
-                <Button type="primary"
+                <Button type="primary" onClick={() => handleRemove(id)}
                         style={{
                             backgroundColor:"red",
                             borderRadius: '10px',
