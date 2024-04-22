@@ -99,7 +99,7 @@ function EditModal(props) {
                 width='65%'
                 open={props.open}
                 centered
-                title={<span style={{ fontSize: '17px' }}>Edit Resource Details</span>} 
+                title={<span style={{ fontSize: '18px' }}>Edit Resource Details</span>} 
                 
                 onClose={props.close}
                 extra={
