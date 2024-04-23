@@ -12,7 +12,7 @@ function NotificationDrawer({setOpen,open}) {
         //etLoading(true); // Set loading to true while fetching
         try {
             // Sending POST request to fetch data based on search parameters
-            const response = await axioinstance.get('Notification/GetNotificatons?username=.');
+            const response = await axioinstance.get('Notification/GetNotificatons?username=shaeni');
             const data = response.data.reverse(); // Extracting data from response
             //setLoading(false); // Setting loading to false after data is fetched
             setNotifications(data); // Updating items state with fetched data
