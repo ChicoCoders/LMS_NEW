@@ -7,6 +7,7 @@ import RemindNotification1 from "./RemindNotification1";
 import UpdateNotification1 from "./UpdateNotification1";
 import Notifications from "./Notifications";
 import NotificationRaw from "./NotificationRaw";
+import axioinstance from '../../Instance/api_instance';
 
 const { Search } = Input;
 const suffix = (
@@ -26,30 +27,37 @@ const handleMenuClick = (e) => {
 
 
 function NotificationCard1() {
-    //const [notifications, setNotifications] = useState(Notifications);
+    const [notifications, setNotifications] = useState([]);
+    const[page,changepage]=useState(1);
+    const[size,changeSize]=useState(0);
 
-    // const removeNotification = (id) => {
-    //     console.log(id);
-    //     setNotifications(notifications.filter((notification) => notification.id !== id));
-    // }
+    const changingPage =(pnumber,size)=>{
+        changepage(pnumber);
+    }
 
-    // const addingNotification=(to,content) =>{
-    //    // console.log(to,content);
-    //     const newNotification = {
-    //         id: notifications.length + 1,
-    //         to: to,
-    //         date: '2021-09-01',
-    //         type: 'Special Notice',
-    //         description: content,
-    //
-    //     };
-    //     setNotifications([...notifications, newNotification]);
-    // }
+    // Fetching data from the API
+    async function fetchData() {
+        try {
+            // Sending POST request to fetch data based on search parameters
+            const response = await axioinstance.get('Notification/GetNotificatons?username=all');
+            const data = response.data.reverse();
+            changeSize(data.length);
+            setNotifications(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    useEffect(() => { fetchData(); }, []);
 
-    const [notifications, setNotifications] = useState(Notifications);
-    const removeNotification = (id) => {
-        console.log(id);
-        setNotifications(notifications.filter((notification) => notification.id !== id));
+
+    const removeNotification = async(id) => {
+        try{
+            const response=await axioinstance.delete(`Notification/RemoveNotification?id=${id}`);
+            console.log(response);
+            fetchData();
+        }catch(e){
+            console.log(e);
+        }
     }
 
     const handleSelectChange = value => {

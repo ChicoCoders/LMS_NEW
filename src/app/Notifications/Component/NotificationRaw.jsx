@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row,Button } from 'antd';
+import {Col, Row, Button, Popconfirm} from 'antd';
 function NotificationRaw({id,to,date,type,description,removeNotification}) {
     const handleRemove = (id) => {
         removeNotification(id);
@@ -46,12 +46,31 @@ return(
         <Row style={{ marginBottom: '10px' }}>
             <Col span={19} style={{ marginLeft: '35px' }}> {description}</Col>
             <Col span={8} offset={21}>
-                <Button type="primary" onClick={() => handleRemove(id)}
+                {/*<Button type="primary" onClick={() => handleRemove(id)}*/}
+                {/*        style={{*/}
+                {/*            backgroundColor:"red",*/}
+                {/*            borderRadius: '10px',*/}
+                {/*            boxShadow: '0 4px 10px 0 rgba(0,0,0,0.2)',*/}
+                {/*                }}>Remove</Button>*/}
+                <Popconfirm
+                    title="Remove the Notification"
+                    description="Are you sure to remove this notification?"
+                    okText="Yes"
+                    cancelText="No"
+                    onConfirm={() => handleRemove(id)}
+                >
+                    <Button
+                        danger
+                        type='primary'
                         style={{
-                            backgroundColor:"red",
-                            borderRadius: '10px',
-                            boxShadow: '0 4px 10px 0 rgba(0,0,0,0.2)',
-                                }}>Remove</Button>
+                            boxShadow: '0 4px 8px 0 rgba(0,0,0,0.15)',
+                        }}
+
+                    >
+                        Remove
+                    </Button>
+                </Popconfirm>
+
             </Col>
         </Row>
 
