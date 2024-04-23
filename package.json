@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.3.1",
     "@ant-design/nextjs-registry": "^1.0.0",
     "@heroicons/react": "^2.1.1",
+    "@microsoft/signalr": "^8.0.0",
     "antd": "^5.15.2",
     "axios": "^1.6.7",
     "chart.js": "^4.4.1",

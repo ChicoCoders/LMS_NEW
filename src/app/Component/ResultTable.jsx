@@ -6,10 +6,10 @@ function ResultTable(props) {
   return (
     <div style={{ width: '100%', overflowX: 'scroll' }}>
       <Table
-        loading='true'
+        loading={props.loading}
         pagination={props.pagination}
         columns={props.columnset}
-
+       
         dataSource={props.dataset}
       />
     </div>

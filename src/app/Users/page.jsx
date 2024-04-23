@@ -2,21 +2,13 @@
 import React, { useState } from 'react'
 import Navigations from '../Component/Navigations'
 import ContentBox from '../Component/ContentBox'
-import { HomeOutlined,UserOutlined,AudioOutlined } from '@ant-design/icons';
+import { HomeOutlined } from '@ant-design/icons';
 import SearchResult from './Component/SearchResult';
-import { Button,Popconfirm ,Input,Space} from 'antd';
+import { Button } from 'antd';
 import AddUserModal from './Component/AddUserModal';
 
-const { Search } = Input;
-const suffix = (
-  <AudioOutlined
-    style={{
-      fontSize: 16,
-      color: '#1677ff',
-    }}
-  />
-);
-const onSearch = (value, _e, info) => console.log(info?.source, value);
+
+
 const PageRoot = [
     {
         href: '/Dashboard',
@@ -70,34 +62,16 @@ const data =  [
 
 
 function page() {
-    const [open, setOpen] = useState(false);
-    const showModal = () => {
-    setOpen(true);
-    };
-    const closeModal=()=>{
-    setOpen(false);
-    };
+    
     return (
         <div>
-            <div>
-                <Navigations selectedItem="Users" topic='Search Users' pageroot={PageRoot}>
-                    <div>
-            <Space direction="vertical" />
-    <Search
-      placeholder="search user..."
-      onSearch={onSearch}
-      style={{
-        width: 200,
-      }}
-    />
-    </div>
-    <br></br>
-                  <> <Input size="default" placeholder="Add a user..." prefix={<UserOutlined />}  onClick={()=>showModal() } />
-                        <AddUserModal open1={open} open={showModal} close={closeModal}/>
-                        <SearchResult data={data} /></> 
+         
+                
+                    
+                       <SearchResult data={data} />
                         
-                </Navigations>
-            </div>
+              
+           
         </div>
     )
 }

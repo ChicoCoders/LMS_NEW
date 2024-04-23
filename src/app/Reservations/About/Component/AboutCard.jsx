@@ -78,6 +78,7 @@ function AboutCard() {
 
   return (
     <Flex  style={{width:'100%'}} justify='center'>
+      <div>dafsdddddddddddsddddd</div>
       <Card bordered style={{width:'90%'}}>
         <Button type='primary' danger style={{ margin: " 0 20px 20px 0" }} shape='round'>OverDue</Button>
         <Button type='primary' shape='round'>Remind</Button>

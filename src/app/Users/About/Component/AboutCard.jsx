@@ -1,20 +1,11 @@
 'use client'
-import { Button, Col, Descriptions, Flex, Image, Row,Popconfirm,message } from 'antd'
+import { Button, Col, Descriptions, Flex, Image, Row } from 'antd'
 import Card from 'antd/es/card/Card'
 import Link from 'next/link';
 import React, { useState } from 'react'
 import EditModal from './EditModal'
 import { HomeOutlined,EditOutlined,DeleteOutlined  } from '@ant-design/icons';
 
-
-const confirm = (e) => {
-  console.log(e);
-  message.success('Deleted');
-};
-const cancel = (e) => {
-  console.log(e);
-  message.error('Click on No');
-};
 const items = [
   {
     key: '1',
@@ -55,11 +46,6 @@ const items = [
     label: 'Added By',
     children: '2024-02-04',
   },
-  {
-    key: '8',
-    label: 'Penalty',
-    children: '5',
-  },
   // {
   //   key: '8',
   //   label: 'Due Date',
@@ -81,20 +67,13 @@ const items = [
 
 function AboutCard() {
     const [modalState,changeModalState]=useState(false);
-    const [isPopupVisible, setPopupVisible] = useState(false);
+
     const openModal=()=>{
         changeModalState(true);
     }
     const closeModal=()=>{
       changeModalState(false);
     }
-    const openPopup = () => {
-      setPopupVisible(true);
-    };
-  
-    const closePopup = () => {
-      setPopupVisible(false);
-    };
 
 
   return (
@@ -104,22 +83,9 @@ function AboutCard() {
       <Flex justify='space-between'>
         <div>
       <Button type='primary' danger style={{margin:" 0 20px 20px 0"}} shape='round'>Admin</Button>
-      <Button type='primary' shape='round'>Not Borrowed</Button>
+      <Button type='primary' shape='round'>Remind</Button>
       </div>
-  <div>
-<Popconfirm
-    title="Delete the User"
-    description="Delete?"
-    onConfirm={confirm}
-    onCancel={cancel}
-    okText="Yes"
-    cancelText="No"
-  >
-   <Button type='primary' shape='circle' icon={<DeleteOutlined/>}></Button>
-  </Popconfirm>
-  </div>
-  
-
+      <Button type='primary' shape='circle' icon={<DeleteOutlined/>}></Button>
       </Flex>
       
         <Row gutter={[30,30]} align="middle" justify="center">
@@ -151,7 +117,6 @@ function AboutCard() {
             
       </Card>
               <EditModal open1={openModal} close1={closeModal} open={modalState}/>
-              
               </Flex>
     
   )

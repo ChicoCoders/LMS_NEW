@@ -16,7 +16,8 @@ function SideMenu() {
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
-        <Menu
+        <Menu 
+          
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}

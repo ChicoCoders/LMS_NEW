@@ -25,12 +25,12 @@ function page() {
   return (
     <div>
       {console.log(PageRoot)}
-      <Navigations selectedItem='Dashboard' topic='Dashboard' pageroot={PageRoot}>
+      {/*<Navigations selectedItem='Dashboard' topic='Dashboard' pageroot={PageRoot}>*/}
 
           <Dashboard />
 
         
-      </Navigations>
+      {/*</Navigations>*/}
     </div>
   )
 }
