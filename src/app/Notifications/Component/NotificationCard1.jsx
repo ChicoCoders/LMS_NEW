@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Flex ,Input, Space,Form,Select} from 'antd';
+import {Button, Flex, Input, Space, Form, Select, Pagination} from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { AudioOutlined , UserOutlined,DownOutlined} from '@ant-design/icons';
-import AddNotifications1 from "./AddNotifications1";
 import RemindNotification1 from "./RemindNotification1";
 import UpdateNotification1 from "./UpdateNotification1";
-import Notifications from "./Notifications";
 import NotificationRaw from "./NotificationRaw";
 import axioinstance from '../../Instance/api_instance';
+import AddNotifications from "./AddNotifications";
 
 const { Search } = Input;
 const suffix = (
@@ -31,22 +30,24 @@ function NotificationCard1() {
     const[page,changepage]=useState(1);
     const[size,changeSize]=useState(0);
 
-    const changingPage =(pnumber,size)=>{
-        changepage(pnumber);
+    const changingPage =(pNumber,size)=>{
+        changepage(pNumber);
     }
 
     // Fetching data from the API
     async function fetchData() {
         try {
-            // Sending POST request to fetch data based on search parameters
             const response = await axioinstance.get('Notification/GetNotificatons?username=all');
-            const data = response.data.reverse();
+            const data = response.data.reverse(); // Reverse the data to show the latest notification first
             changeSize(data.length);
             setNotifications(data);
+            // console.log(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     }
+
+
     useEffect(() => { fetchData(); }, []);
 
 
@@ -71,7 +72,7 @@ function NotificationCard1() {
         <Flex gap="small" wrap="wrap" justify="space-between">
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '23%' }}>
 
-                <AddNotifications1 style={{ width: '150px' }} />
+                <AddNotifications style={{ width: '150px' }}  fetchData={fetchData} />
                 <RemindNotification1 style={{ width: '150px' }} />
                 <UpdateNotification1 style={{ width: '150px' }} />
             </div>
@@ -123,14 +124,14 @@ function NotificationCard1() {
         </Flex>
 
             <div style={{marginTop:'30px'}}>
-                {notifications.map((notification) => (
+                {notifications.slice((page-1)*9,(page-1)*9+ 9).map((notification) => (
                     <div>
                         <NotificationRaw
                             key={notification.id}
                             id={notification.id}
-                            to={notification.to}
+                            userName={notification.userName}
                             date={notification.date}
-                            type={notification.type}
+                            subject={notification.subject}
                             description={notification.description}
                             removeNotification={removeNotification}
                         />
@@ -139,13 +140,18 @@ function NotificationCard1() {
 
                     </div>
                 ))}
+
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Pagination defaultCurrent={1} total={50} onChange={changingPage} pageSize={9}/>
+                </div>
             </div>
 
         </div>
-            );
+    );
 
 
 }
+
 export default NotificationCard1;
 
 

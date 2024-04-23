@@ -47,34 +47,7 @@ const UpdateNotification1 = () => {
                         <Switch />
                     </Form.Item>
 
-                    {/*<Form.Item>*/}
-                    {/*    <Checkbox.Group>*/}
-                    {/*        <Row>*/}
-                    {/*            <Col span={8}>*/}
-                    {/*                <Checkbox value="A" style={{ lineHeight: '32px' }}>*/}
-                    {/*                    New Books*/}
-                    {/*                </Checkbox>*/}
-                    {/*            </Col>*/}
 
-                    {/*            <Col span={8}>*/}
-                    {/*                <Checkbox value="C" style={{ lineHeight: '32px' }}>*/}
-                    {/*                    New Ebboks*/}
-                    {/*                </Checkbox>*/}
-                    {/*            </Col>*/}
-                    {/*            <Col span={8}>*/}
-                    {/*                <Checkbox value="D" style={{ lineHeight: '32px' }}>*/}
-                    {/*                    New Journals*/}
-                    {/*                </Checkbox>*/}
-                    {/*            </Col>*/}
-                    {/*            <Col span={8}>*/}
-                    {/*                <Checkbox value="E" style={{ lineHeight: '32px' }}>*/}
-                    {/*                    Others*/}
-                    {/*                </Checkbox>*/}
-                    {/*            </Col>*/}
-
-                    {/*        </Row>*/}
-                    {/*    </Checkbox.Group>*/}
-                    {/*</Form.Item>*/}
 
                     <Form.Item>
                         <Checkbox.Group style={{ display: 'flex', justifyContent: 'space-between' }}>
