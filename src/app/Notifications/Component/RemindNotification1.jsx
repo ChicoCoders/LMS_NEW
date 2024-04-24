@@ -25,21 +25,23 @@ const RemindNotification1 = () => {
 
     return (
         <>
+            {/*remindin button*/}
             <Button type="primary" onClick={showModal} style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff', }}>
                 Reminding
             </Button>
-            <Modal
+            <Modal //modal for remind notification
                 title="Remind Notification"
                 visible={visible}
                 onCancel={handleCancel}
                 footer={null} // Hide the default footer buttons
             >
+                {/*form for remind notification*/}
                 <Form
                     layout="vertical"
                     form={form}
                     name="basic"
                     initialValues={{ remember: true }}
-                    onFinish={onFinish}
+                    onFinish={onFinish}//make onFinish function to handle the form submission
                 >
 
                     <Form.Item label="Switch" valuePropName="checked">

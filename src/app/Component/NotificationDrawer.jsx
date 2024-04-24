@@ -31,7 +31,7 @@ function NotificationDrawer({setOpen,open}) {
     <Drawer
                 mask={true}
                 maskClosable={false}
-                style={{maxWidth:'95%'}}
+                style={{maxWidth:'100%'}}
                 width='350px'
                 title={<Flex>Notifications</Flex>}
                 open={open}

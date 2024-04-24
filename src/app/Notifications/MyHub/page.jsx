@@ -82,37 +82,7 @@ const Chat = ({children}) => {
     },[messages])
 
     return (
-    //     <div className="p-4">
-    //   <div className="mb-4">
-    //     {messages.map((msg, index) => (
-    //       <div
-    //         key={index}
-    //         className={`p-2 my-2 rounded ${
-    //           isMyMessage(msg.sender) ? "bg-blue-200" : "bg-gray-200"
-    //         }`}
-    //       >
-    //         <p>{msg.content}</p>
-    //         <p className="text-xs">{new Date(msg.sentTime).toLocaleString()}</p>
-    //       </div>
-    //     ))}
-    //   </div>
-    //   <div className="d-flex justify-row">
-    //     <TextArea
-    //       rows={4}
-    //       className="border p-2 mr-2 rounded w-[300px]"
-    //       value={newMessage}
-    //       onChange={(e) => setNewMessage(e.target.value)}
-    //     />
-    //     <Button
-    //       type="primary"
-    //       onClick={sendMessage}
-    //       className="bg-blue-500 text-white p-2 rounded"
-    //     >
-    //       Send
-    //     </Button>
-    //   </div>
-    // </div>
-      // Your JSX content here
+
       <div>
         {contextHolder}
       {children}

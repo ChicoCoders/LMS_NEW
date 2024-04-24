@@ -5,18 +5,20 @@ import { UserContext } from '../../Context/Context';
 import { HubConnectionBuilder,LogLevel } from '@microsoft/signalr';
 const { Option } = Select;
 
-const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useState(false);
-  const [form] = Form.useForm();
+// Component to add a new notification
+const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useState(false);//usestate for modal
+  const [form] = Form.useForm();//usestate for form
   const[respient,setrecepient]=useState("all")//usestate for select other
   const [messages, setMessages] = useState([]);//usestate for message
    
-    const [connection, setConnection] = useState(null);
-    const user=React.useContext(UserContext).user;
+    const [connection, setConnection] = useState(null);////usestate for connection
+    const user=React.useContext(UserContext).user;//
     
-    useEffect(() => {
-      const connect = new HubConnectionBuilder()
+    useEffect(() => {//useeffect for connection
+      const connect = new HubConnectionBuilder()//connection builder
+
         .withUrl("http://localhost:5164/Hubs/MyHub")
-        .withAutomaticReconnect()
+        .withAutomaticReconnect()//automatic reconnect
         .configureLogging(LogLevel.Information)
         .build();
       setConnection(connect);
@@ -36,7 +38,7 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
           console.error("Error while connecting to SignalR Hub:", err)
         );
 
-      
+        {/*Cleanup the connection when the component unmounts*/}
       return () => {
         if (connection) {
           connection.off("ReceiveMessage");
@@ -45,16 +47,16 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
     }, [user]);
 
     
-
+    // Function to send a message
     const sendMessage = async () => {
       if (connection) {
         await connection.send("SendMessage", 
-        {userName :respient=="other"?form.getFieldValue('userId'):respient,
+        {userName :respient==="other"?form.getFieldValue('userId'):respient,
         subject : "New Announcement",
         description:form.getFieldValue('description') });
       }
       fetchData();
-      onCancel();
+      onCancel();{/*close the modal*/}
     };
 
     const showModal = () => {
@@ -70,6 +72,7 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
   
   return (
       <>
+      {/*new button*/}
         <Button type="primary" onClick={showModal} style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff', }}>
             New
         </Button>
@@ -88,11 +91,13 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
                     form.resetFields();
                   })
                   .catch((info) => {
-                    console.log('Validate Failed:', info);// add error handling
+                    console.log('Validate Failed:', info);{/*add error handling*/}
                   });
             }}
         >
+            {/*form for notification*/}
           <Form form={form} layout="vertical" name="form_in_modal">
+              {/*form item for subject*/}
             <Form.Item name="to" label="To" rules={[{ required: true, message: 'Please select the recipient!' }]}>
             <Select placeholder="Select Recipient" onSelect={(value)=>setrecepient(value)} >  {/*usestate for select other*/}
 
@@ -103,14 +108,17 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
                 {/* Add more options based on your notification recipients */}
               </Select>
             </Form.Item>
+              {/*if select others this code happen*/}
             {
-              (respient=="other")?
+              (respient==="other")?
                   <Form.Item name="userId" label="User Name" rules={[{ required: true, message: 'Please select username!' }]} >
                     <Input placeholder="Enter User Name" />
                   </Form.Item>
+
                   :<div></div>
             }
 
+            {/*form item for description*/}
             <Form.Item name="description" label="Description" rules={[{ required: true, message: 'Please enter the notification description!' }]}>
               <Input.TextArea rows={4} placeholder="Enter Description" />
             </Form.Item>
