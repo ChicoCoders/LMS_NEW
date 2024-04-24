@@ -46,8 +46,8 @@ function CardResource(props) {
         <Row style={{ width: "100%" }} justify="center" >
           <Col >
             <Image 
-              src="https://5.imimg.com/data5/HX/TD/MY-14344381/nootan-physics-xii-book-500x500.png"
-              alt="Resource"
+              src={props.dataset.url}
+              alt={`Image of ${props.dataset.title}`}
               width="140px"
               height="210px"
             />

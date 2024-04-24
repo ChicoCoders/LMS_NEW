@@ -28,7 +28,7 @@ function SearchResult(props) {
       setBooks(searchData);
       
     } catch (error) { 
-      console.error('Error searching data:', error);
+      alert('Error searching data:');
     }
   };
 

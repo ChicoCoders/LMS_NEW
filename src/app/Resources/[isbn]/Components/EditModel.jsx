@@ -1,7 +1,10 @@
-import { Button, DatePicker, Flex, Form, Input,message,InputNumber,Row,Col,TextArea,ConfigProvider,Drawer,Space} from 'antd'
+import { Button, DatePicker, Flex,message,InputNumber,Row,ConfigProvider,Drawer,Space,Image} from 'antd'
 import React, { useState,useEffect} from 'react'
+import moment from 'moment';
 import axios from 'axios';
 import { CloseCircleOutlined} from '@ant-design/icons';
+import { Form, Col, Input } from 'antd';
+const { TextArea } = Input; 
 
 function EditModal(props) {
     const [messageApi, contextHolder] = message.useMessage();
@@ -31,7 +34,7 @@ function EditModal(props) {
       price: props.data.price,
       description: props.data.description,
       pages: props.data.pages,
-      addededOn: props.data.addedon,
+      //addededOn: props.data.addedon,
       location: props.data.location,
       addedByID: 'sasindu',
       imagePath: 'hello.lk',
@@ -76,6 +79,7 @@ function EditModal(props) {
        token: {
           fontSize:'13px',
           lineHeight:'25px',
+          colorBorder: '#d9d9d9',
        },
        components: {
         Form: {
@@ -103,10 +107,10 @@ function EditModal(props) {
                 
                 footer={[
                     <Flex wrap='wrap' gap="5px" style={{ height:'30px',justifyContent:'flex-end',paddingRight:'30px'}}>
-                        <Button style={{ height:'30px',width:'120px'}} size='small' shape='round' key="submit" type="primary"   onClick={handleFormSubmit} loading={loading}>
+                        <Button style={{ height:'30px',width:'120px'}} size='medium'  key="submit" type="primary"   onClick={handleFormSubmit} loading={loading}>
                             Save
                         </Button>
-                        <Button style={{ height:'30px',width:'120px' }} size='small' shape='round' key="back" onClick={props.close}>
+                        <Button style={{ height:'30px',width:'120px',background:'grey'}} size='medium'  key="back" onClick={props.close}>
                             Cancel
                         </Button>
 
@@ -118,9 +122,9 @@ function EditModal(props) {
                 }}>
                     <Form form={form} onSubmit={handleFormSubmit} layout='vertical'>
                      <Row align="middle" gutter={[30,10]} style={{padding:'0 0 0 15px',fontWeight:'600'}}>  
-                    <Col xs={24} sm={15} >
+                    <Col xs={24} sm={14} >
                         <Row gutter={[30,10]} > 
-                            <Col xs={24} sm={18} > <Form.Item name="isbn" label="ISBN" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("isbn", e.target.value)}/></Form.Item></Col>
+                            <Col xs={24} sm={18} > <Form.Item name="isbn" label="ISBN" rules={[{ required: true }]}><Input  disabled placeholder={props.data.isbn}/></Form.Item></Col>
                         </Row>
                         <Row gutter={[30,10]}  >
                             <Col xs={24} sm={18}><Form.Item name="title" label="Title" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("title", e.target.value)}/></Form.Item></Col>
@@ -134,7 +138,7 @@ function EditModal(props) {
                         </Row>
                         <Row gutter={[30,10]}>
                             <Col xs={24} sm={9}><Form.Item name='location' label="Location" rules={[{ required: true }]}><Input onChange={(e) => handleInputChange("location", e.target.value)}/></Form.Item></Col> 
-                            <Col xs={24} sm={12}><Form.Item name='addededOn' label="Added On" rules={[{ required: true }]}></Form.Item></Col>
+                            <Col xs={24} sm={10}><Form.Item name='addedOn' label="Added On"><DatePicker defaultValue={moment()} disabled style={{ width: '180px',height:'30px'}}/></Form.Item></Col>
                         </Row>
                         <Row gutter={[0,0]}>
                             <Col xs={24} sm={7}><Form.Item name='quantity' label="Quantity" rules={[{ required: true }]}><InputNumber min={0} onChange={(e) => handleInputChange("quantity", e.target.value)}/></Form.Item></Col>
@@ -146,12 +150,16 @@ function EditModal(props) {
                         <Col xs={24} sm={7} style={{ display: 'none' }}><Form.Item name="url" label="url" rules={[{ required: true }]}></Form.Item></Col>
                         
                     </Col>
-                    <Col xs={24} sm={9} >
-                        {/* <Row gutter={[30,10]}>
-                             <Col xs={24} sm={24}><UploadImage/> </Col>
-                        </Row> */}
+                    <Col xs={24} sm={10} align="middle" >
+                        <Row gutter={[40,10]} style={{marginBottom:'15px',marginLeft:'10px'}}>
+                           <Image
+                              src={props.data.url}
+                              alt={`Image of ${props.data.title}`}
+                              width="65%"
+                               />
+                        </Row>
                         <Row gutter={[30,10]}>
-                            <Col xs={24} sm={18}><Form.Item name='description' label="Description" ><Input onChange={(e) => handleInputChange("description", e.target.value)}/></Form.Item></Col>
+                            <Col xs={24} sm={22}><Form.Item name='description' label="Description" ><TextArea rows={5} onChange={(e) => handleInputChange("description", e.target.value)}/></Form.Item></Col>
                         </Row>                
                     </Col>
                 </Row>

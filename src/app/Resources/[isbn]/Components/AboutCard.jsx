@@ -5,9 +5,10 @@ const { Panel } = Collapse;
 import Card from 'antd/es/card/Card'
 import Link from 'next/link';
 import React, { useState,useEffect} from 'react'
-import EditModall from './EditModel'
+import EditModal from './EditModel'
 import { EditOutlined,DeleteOutlined ,LeftCircleOutlined} from '@ant-design/icons';
 import axioinstance from '../../../Instance/api_instance';
+
 
 
 
@@ -93,14 +94,7 @@ function AboutCard(props) {
     <div>
       <Flex justify="space-between" style={{marginBottom:'20px'}}>
         <div>
-          <font style={{ fontSize: '18px',fontWeight:'600'}}>Resources Details of Recource {responseData.title}</font>
-        </div>
-        <div >
-        <Tooltip title="Go Back">
-          <Link href="/Resources">
-             <LeftCircleOutlined style={{ fontSize: '22px',marginTop:'7px',color:'black'}}/>
-          </Link> 
-        </Tooltip>
+          <font style={{ fontSize: '17px',fontWeight:'500'}}>Resources Details of Recource {responseData.title}</font>
         </div>
       </Flex>
        <Row gutter={[30, 30]}>
@@ -110,12 +104,13 @@ function AboutCard(props) {
         <div>Loading has failed....</div>
       ) : (
         <><Row gutter={[30, 30]} >
-                  <Col md={8} sm={24} xs={24}>
+                  <Col md={7} sm={24} xs={24} style={{marginLeft:'20px'}}>
 
                     <Image
-                      src="https://5.imimg.com/data5/HX/TD/MY-14344381/nootan-physics-xii-book-500x500.png"
-                      alt="Picture of the author"
-                      width="75%"
+                      src={responseData.url}
+                      alt={`Image of ${responseData.title}`}
+                      width="220px"
+                      height="270px"
                       style={{ borderRadius: '10%' }} />
                   </Col>
                   <Col md={16} sm={24} xs={24}>
@@ -160,7 +155,7 @@ function AboutCard(props) {
       </Card> 
       </Col>
       </Row> 
-     <EditModall  fetchData={fetchData} open={open} openFuntion={showModal} close={closeModal} data={responseData}/> 
+     <EditModal  fetchData={fetchData} open={open} openFuntion={showModal} close={closeModal} data={responseData}/> 
       </div>
       </ConfigProvider>
   )

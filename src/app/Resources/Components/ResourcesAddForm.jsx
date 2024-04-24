@@ -7,8 +7,7 @@ import TextArea from 'antd/es/input/TextArea';
 import moment from 'moment';
 
 function ResourcesAddForm(props) {
-    const[imageURL,setImageURL]=useState("")
-    console.log(imageURL);
+    
 
 return (
 
@@ -55,9 +54,9 @@ return (
                     </Col>
                     <Col xs={24} sm={10} align="middle">
                         <Row gutter={[30,11]} >
-                             {/* <Col xs={24} sm={24} style={{padding:'15px 0 0 0'}}>
-                                <Form.Item value="imageURL"><UploadImage setImageURL={setImageURL}/> </Form.Item>
-                             </Col> */}
+                             <Col xs={24} sm={24} style={{padding:'15px 0 0 0'}}>
+                                <Form.Item><UploadImage setImageURL={props.setImageURL}/> </Form.Item>
+                             </Col>
                         </Row>
                         <Row gutter={[30,10]}>
                             <Col xs={24} sm={24}><Form.Item name='description' label="Description" ><TextArea rows={4} /></Form.Item></Col>
