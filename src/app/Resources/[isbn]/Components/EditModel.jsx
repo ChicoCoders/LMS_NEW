@@ -1,11 +1,6 @@
 import { Button, DatePicker, Flex, Form, Input,message,InputNumber,Row,Col,TextArea,ConfigProvider,Drawer,Space} from 'antd'
-import Modal from 'antd/es/modal/Modal'
-import moment from 'moment';
-import UploadImage from '../../Components/myComponent/UploadImage';
 import React, { useState,useEffect} from 'react'
 import axios from 'axios';
-import axioinstance from '../../../Instance/api_instance';
-import { useParams } from 'next/navigation';
 import { CloseCircleOutlined} from '@ant-design/icons';
 
 function EditModal(props) {
@@ -13,21 +8,19 @@ function EditModal(props) {
     const success = () => {
         messageApi.open({
           type: 'success',
-          content: 'Extend Date Successfully!',
+          content: 'Edit Resource details Successfully!',
         });
       };
       const errormsg = () => {
         messageApi.open({
           type: 'error',
-          content: 'Extend Date is Failed',
+          content: 'Edit Resource details are Failed',
         });
       };
 
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  //console.log(props.data.description);
 
-  // Initialize form with data
   useEffect(() => {
     form.setFieldsValue({
       isbn: props.data.isbn,
@@ -64,32 +57,32 @@ function EditModal(props) {
      .then((response)=>{
         setTimeout(() => {
             setLoading(false);
-            // showSuccessModal();
             props.fetchData();
+            success();
         }, 3000);
-        alert(response.data.isbn);
      },(error)=>{
-      
         setLoading(false);
-        console.log(error);
-     alert(error);}
+        errormsg();
+      }
      
     )
              
     
 };
     return (
-        <ConfigProvider
-    theme={{
-    token: {
-      fontSize:'13px',
-      lineHeight:'25px',
-    },
-    components: {
+      
+    <ConfigProvider
+       theme={{
+       token: {
+          fontSize:'13px',
+          lineHeight:'25px',
+       },
+       components: {
         Form: {
-          itemMarginBottom:20
+           itemMarginBottom:20
         },
-      },}}>    
+      },}}>  
+      {contextHolder}  
         <div>
            
             
@@ -105,7 +98,6 @@ function EditModal(props) {
                 extra={
                   <Space>
                     <CloseCircleOutlined onClick={props.close} style={{ fontSize: '22px'}}/>
-                    {/* <Button >Cancel</Button> */}
                   </Space>
                 }
                 

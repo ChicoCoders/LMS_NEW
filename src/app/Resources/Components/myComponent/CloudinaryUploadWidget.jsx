@@ -1,17 +1,15 @@
 import { createContext, useEffect, useState } from "react";
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Upload } from "antd";
-import { LoadingOutlined, CloudUploadOutlined } from '@ant-design/icons';
-// Create a context to manage the script loading state
+import {Button} from 'antd';
+import UploadImage from "./UploadImage";
+
+
 const CloudinaryScriptContext = createContext();
 
-function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
+function CloudinaryUploadWidget({ uwConfig, setPublicId,setImageUrl }) {
   const [loaded, setLoaded] = useState(false);
-  const[url,setUrl] = useState('');
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Check if the script is already loaded
+
     if (!loaded) {
       const uwScript = document.getElementById("uw");
       if (!uwScript) {
@@ -28,31 +26,8 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
       }
     }
   }, [loaded]);
-  const uploadButton = (
-    <button
-      style={{
-        border: '2px solid #d9d9d9',
-        justifyContent:'center',
-        
 
-        }}
-      type="button"
-    >
-      {loading ? <LoadingOutlined /> : <CloudUploadOutlined style={{fontSize:'90px',paddingTop:'79px'}}/>}
-      <div
-        style={{
-          width: '224px',
-          height: '120px',
-          alignContent:'center',
-          fontSize:'20px'
-        }}
-      >
-        <h5>Upload Image</h5> 
-      </div>
-    </button>
-  );
-
-  const   initializeCloudinaryWidget = () => {
+  const initializeCloudinaryWidget = () => {
     if (loaded) {
       var myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
@@ -60,7 +35,10 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
           if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
             setPublicId(result.info.public_id);
-            setUrl(result.info.public_id);
+            const imageUrl=result.info.url;
+            console.log(imageUrl);
+            setImageUrl(imageUrl);
+           
           }
         }
       );
@@ -74,28 +52,22 @@ function CloudinaryUploadWidget({ uwConfig, setPublicId }) {
       );
     }
   };
- console.log(url);
+
   return (
+    
     <CloudinaryScriptContext.Provider value={{ loaded }}>
       <Button
-        style={{
-          display: "flex",
-          alignItems: "center",
-          width: "100%",
-          justifyContent: "center",
-          height: "60px",
-        }}
-        type="button"
         id="upload_widget"
-        className="cloudinary-button"
         onClick={initializeCloudinaryWidget}
-        icon={<UploadOutlined />}
+        size="medium"
+        style={{marginTop:'10px',width:'220px'}}
+        type='primary'
       >
-        Upload
+        Upload Resource Image
       </Button>
     </CloudinaryScriptContext.Provider>
   );
 }
 
 export default CloudinaryUploadWidget;
-//export { CloudinaryScriptContext };
+export { CloudinaryScriptContext };

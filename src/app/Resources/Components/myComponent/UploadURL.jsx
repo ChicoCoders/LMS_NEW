@@ -15,9 +15,6 @@ const UploadURL = () => {
   };
 
   const customRequest = ({ onSuccess, onError, file }) => {
-    // Here you can implement your logic to send the image URL to Google Search by Image API
-    // onSuccess and onError should be called based on the API response
-    // For simplicity, we'll just show a success message for demonstration purposes
     setTimeout(() => {
       onSuccess();
     }, 1000);

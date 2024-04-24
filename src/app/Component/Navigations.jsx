@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
-import { UserOutlined,LogoutOutlined , MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined, DashboardOutlined } from '@ant-design/icons';
-import { Card, ConfigProvider, Flex, Layout, Menu, Space, theme } from 'antd';
+import { UserOutlined,LogoutOutlined , MessageOutlined, ReadOutlined, AuditOutlined, InteractionOutlined, InfoCircleOutlined, DashboardOutlined,ArrowLeftOutlined} from '@ant-design/icons';
+import { Card, ConfigProvider, Flex, Layout, Menu, Button,Divider} from 'antd';
 import Link from 'next/link';
 import AdressBar from './AdressBar';
 import MenuItem from 'antd/es/menu/MenuItem';
@@ -146,8 +146,32 @@ const rootPath = location.split('/')[1];
             theme="light" mode="horizontal" defaultSelectedKeys={[]} items={items} />
         </Header>
         <Content style={{ margin: '24px 5%' }}>
+        <Card>
+                  <Flex al justify="space-between" align="center" wrap="">
+                    <Flex
+                      style={{ fontSize: "25px", fontWeight: "600" }}
+                      align="center"
+                    >
+                      {" "}
+                      <Button
+                        onClick={() => router.back()}
+                        style={{ margin: "0 20px 0 0" }}
+                        shape="circle"
+                        icon={<ArrowLeftOutlined />}
+                      />
+                      {rootPath}
+                    </Flex>
+                    <div>
+                      <AdressBar item={props.pageroot} />
+                    </div>
+                  </Flex>
+                  <Divider />
+                  <Flex vertical style={{ margin: "10px 0 0 0 " }}>
+                    {props.children}
+                  </Flex>
+                </Card>
 
-          <Card >
+          {/* <Card >
             <Flex justify='space-between' align='center' wrap=''>
 
               <div style={{ fontSize: '20px', fontWeight: '600' }}>{rootPath}</div>
@@ -155,7 +179,7 @@ const rootPath = location.split('/')[1];
             </Flex>
             <Flex vertical style={{ margin: '30px 0 0 0 ' }}>{props.children}</Flex>
 
-          </Card>
+          </Card> */}
 
         </Content >
 

@@ -25,6 +25,7 @@ function Loginform() {
             //   cookies.set('jwt', jwtToken, { path: '/', httpOnly: true });
               console.log(response.data);
               router.push('/Dashboard');
+              console.log(response.data);
         }catch(error){
             console.log("error")
             router.push('/LogIN');

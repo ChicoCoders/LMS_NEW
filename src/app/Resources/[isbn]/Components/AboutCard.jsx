@@ -1,70 +1,15 @@
 'use client'
-import { Button, Col, Descriptions, Flex, Image, Row,Popover,Modal,Tooltip} from 'antd'
+import { Button, Col, Descriptions, Flex, Image, Row,Tooltip,ConfigProvider} from 'antd'
 import { Collapse } from 'antd';
-
 const { Panel } = Collapse;
 import Card from 'antd/es/card/Card'
 import Link from 'next/link';
 import React, { useState,useEffect} from 'react'
-import EditModal from './EditModel'
 import EditModall from './EditModel'
-//import ResourcesAddForm from './ResourcesAddForm';
-import { HomeOutlined,EditOutlined,DeleteOutlined ,LeftCircleOutlined} from '@ant-design/icons';
-import Title from 'antd/es/typography/Title';
-import CollapsePanel from 'antd/es/collapse/CollapsePanel';
-import axios from 'axios';
+import { EditOutlined,DeleteOutlined ,LeftCircleOutlined} from '@ant-design/icons';
 import axioinstance from '../../../Instance/api_instance';
 
 
-// const items = [
-//   {
-//     key: '1',
-//     label: 'Title',
-//     children: 'Advanced Level Physics (New Syllabus) MCQ Review',
-//   },
-//   {
-//     key: '2',
-//     label: 'ISBN',
-//     children: '978-955-1760-43-4',
-//   },
-//   {
-//     key: '3',
-//     label: 'Author',
-//     children: 'Dr S.R.D Rosa',
-//   },
-//   {
-//     key: '4',
-//     label: 'Year',
-//     children: '2020',
-//   },
-//   {
-//     key: '5',
-//     label: 'Type',
-//     children: 'Book',
-//   },
-//   {
-//     key: '6',
-//     label: 'Publisher',
-//     children: 'GRC Publisher',
-//   },
- 
-//   {
-//     key: '7',
-//     label: 'Price',
-//     children: 'Rs 650.00',
-//   },
-//   {
-//     key: '8',
-//     label: 'No. Pages',
-//     children: '250 pages',
-//   },
-//   {
-//     key: '9',
-//     label: 'Added on',
-//     children: '20 January 2020',
-//   },
-  
-// ];
 
 function AboutCard(props) {
   const [open, setOpen] = useState(false);
@@ -136,6 +81,15 @@ function AboutCard(props) {
   };
 
   return (
+    <ConfigProvider
+     theme={{
+     token: {
+      colorBorder: 'rgb(255,255,255)',
+      colorTextHeading:'rgba(0, 0, 0, 0.48)'
+     },
+    }}
+    >
+
     <div>
       <Flex justify="space-between" style={{marginBottom:'20px'}}>
         <div>
@@ -161,32 +115,11 @@ function AboutCard(props) {
                     <Image
                       src="https://5.imimg.com/data5/HX/TD/MY-14344381/nootan-physics-xii-book-500x500.png"
                       alt="Picture of the author"
-                      width="90%"
+                      width="75%"
                       style={{ borderRadius: '10%' }} />
                   </Col>
                   <Col md={16} sm={24} xs={24}>
                     <Descriptions title={ <div>
-
-                      {/* <Flex justify='space-between' style={{ margin: '30px 10px' }}>
-
-                        <div>
-                          <Popover title="Total" placement="bottomLeft">
-                            <Button type="primary" style={{ background: '#2D363F', margin: " 0 10px 10px 0", borderRadius: '15px' }}>{responseData.total}</Button>
-                          </Popover>
-                          <Popover title="Borrowed" placement="bottom">
-                            <Button type="primary" style={{ background: '#2D363F', margin: " 0 10px 10px 0", borderRadius: '15px' }}>{responseData.borrowed}</Button>
-                          </Popover>
-                          <Popover title="Remain" placement="bottom">
-                            <Button type="primary" style={{ background: '#2D363F', margin: " 0 10px 10px 0", borderRadius: '15px' }}>{responseData.remain}</Button>
-                          </Popover>
-                          <Popover title="Location" placement="bottomRight">
-                            <Button type="primary" style={{ background: '#2D363F', margin: " 0 10px 10px 0", borderRadius: '15px' }}>{responseData.location}</Button>
-                          </Popover>
-                        </div><div style={{ height: '30px' }}>
-                          <Button type='primary' danger style={{ margin: " 0 10px 10px 0" }} shape='round' icon={<DeleteOutlined />}></Button>
-                          <Button type='primary' style={{ margin: " 0 10px 10px 0" }} shape='round' icon={<EditOutlined />} onClick={showModal}></Button>
-                        </div>
-                      </Flex> */}
 
                       <Flex  style={{ margin: '20px 0px 30px 0px',justifyContent:'space-between',fontSize:'10px'}}>
 
@@ -216,20 +149,20 @@ function AboutCard(props) {
 
                   </Col>
 
-                </Row><br /><br /><Collapse>
+                </Row><br /><br />
+                <Collapse>
                     <Panel header={`Description about ${responseData.title}`}  key="1" style={{backgroundColor: '#f5f5f5',fontWeight: '600'}}>
                       <p>{responseData.description}</p>
                     </Panel>
-                  </Collapse></>
+                </Collapse></>
                 
         )}
       </Card> 
       </Col>
       </Row> 
-     {/* <EditModal  fetchData={fetchData} open={open} openFuntion={showModal} close={closeModal} data={responseData}/>  */}
      <EditModall  fetchData={fetchData} open={open} openFuntion={showModal} close={closeModal} data={responseData}/> 
       </div>
-      
+      </ConfigProvider>
   )
 }
 

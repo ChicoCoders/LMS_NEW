@@ -2,7 +2,6 @@ import React from 'react'
 import Navigations from '../../Component/Navigations'
 import { HomeOutlined,InteractionOutlined } from '@ant-design/icons';
 import AboutCard from './Components/AboutCard'
-//import AAA from './Component/AAA'
 
 const PageRoot = [
     {
