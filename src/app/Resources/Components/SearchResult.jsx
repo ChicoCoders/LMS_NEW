@@ -1,5 +1,5 @@
 'use client'
-import { Button, Flex, Pagination, Row, Space, Table } from 'antd'
+import { Button, Flex, Pagination, Row, Space, Table,Col} from 'antd'
 import React, { useEffect, useState } from 'react'
 import { UserDeleteOutlined ,MoreOutlined} from '@ant-design/icons';
 import ResultTable from '../../Component/ResultTable';
@@ -53,7 +53,7 @@ function SearchResult(props) {
       const response = await axios.get(`http://localhost:5164/api/Resource/GetAllResource`);
       const searchData = response.data;
       setBooks(searchData);
-      console.log(searchData);
+      //console.log(searchData);
     } catch (error) { 
       console.error('Error searching data:', error);
     }
@@ -63,7 +63,16 @@ function SearchResult(props) {
   
   return(
     <Card title="List of Books">
-    <Row style={{width:"100%"}}   gutter={[15,20]} justify="center">
+        {/* <Row >
+          <Row gutter={[10,10]} >
+            {books.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
+              <Col xs={24} sm={6} >
+                <CardResource  dataset={item} />
+              </Col>
+          ))}
+          </Row>
+        </Row> */}
+    <Row style={{width:"100%"}}   gutter={[15,15]} justify="center">
    
     {books.slice((page-1)*9,(page-1)*9+ 9).map((item) => (
         <CardResource  dataset={item} />

@@ -1,10 +1,8 @@
 import React from 'react'
 import Navigations from '../../Component/Navigations'
 import { HomeOutlined,InteractionOutlined } from '@ant-design/icons';
-import AboutCard from './Components/AboutCart'
-import AAA from './Components/AAA'
-import AdressBar from '@/app/Component/AdressBar';
-import AboutCartModel from './Components/AboutCartModel';
+import AboutCard from './Components/AboutCard'
+//import AAA from './Component/AAA'
 
 const PageRoot = [
     {
@@ -32,14 +30,15 @@ const PageRoot = [
     },
   ]
 
-function page(props) {
+function page({params}) {
+  
   return (
     <div>
-         <AdressBar  topic="About Resource"  pageroot={PageRoot}/>
-        <AboutCartModel/>
-        
+       
+       <AboutCard isbn={params.isbn}/>
+       
     </div>
-  )
+  ) 
 }
 
 export default page

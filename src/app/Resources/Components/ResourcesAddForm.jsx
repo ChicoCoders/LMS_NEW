@@ -1,9 +1,11 @@
 'use client'
-import { Button, Checkbox, Col, Form, Image, Input, InputNumber, Row, Select,DatePicker} from 'antd'
 
+import { Button, Checkbox, Col, Form, Image, Input, InputNumber, Row, Select,DatePicker,ConfigProvider} from 'antd'
+import UploadImage from './myComponent/UploadImage'
 import React, { useState } from 'react'
-
+import EditModal from '../[isbn]/Components/EditModel';
 import TextArea from 'antd/es/input/TextArea';
+import moment from 'moment';
 
 function ResourcesAddForm(props) {
 
@@ -69,18 +71,29 @@ function ResourcesAddForm(props) {
     const onChange = (date, dateString) => {
         console.log(date, dateString);
       };
+
     return (
 
     <div>
-                    <Form form={props.form} size='small' layout='vertical' name="nest-messages"  >
-                    <Row align="middle" gutter={[30,10]}>
-                    <Col xs={24} sm={8} align="middle">
-                        {/* <UploadImage/>                     */}
-                    </Col>
+
+        <ConfigProvider
+    theme={{
+    token: {
+      fontSize:'12px',
+      lineHeight:'25px'
+    },
+    components: {
+        Form: {
+          itemMarginBottom:16,
+        },
+      },}}>
+                    <Form form={props.form}  layout='vertical'  >
+                    {/* <Row align="middle" gutter={[30,10]}>
+                    
                     <Col xs={24} sm={16} >
                         
-                        <Row gutter={[30,10]} > 
-                            <Col xs={24} sm={10} ><Form.Item name="isbn" label="ID ( ISBN )" rules={[{ required: true }]}><Input size="middle" /></Form.Item></Col>
+                        <Row gutter={[30,10]}  > 
+                            <Col xs={24} sm={10} ><Form.Item name="isbn" label="ID ( ISBN )" rules={[{ required: true }]}><Input  style={{margin:'0px',lineHeight:'32px'}}/></Form.Item></Col>
                             <Col xs={24} sm={10}><Form.Item name="title" label="Title" rules={[{ required: true }]}><Input size="middle"/></Form.Item></Col>
                         </Row>
                         <Row gutter={[30,10]} > 
@@ -97,16 +110,52 @@ function ResourcesAddForm(props) {
                             <Col xs={24} sm={5}><Form.Item name="price" label="Price" rules={[{ required: true }]}><InputNumber size="middle"/></Form.Item></Col>
                             <Col xs={24} sm={5}><Form.Item name="pagecount" label="No of pages" rules={[{ required: true }]}><InputNumber size="middle"/></Form.Item></Col>
                         </Row>
-                        {/* <Row gutter={[30,10]}>
-                            
-                               
-                        </Row> */}
                         <Row gutter={[30,10]}>
                         <Col xs={24} sm={20}><Form.Item name='description' label="Description" ><TextArea rows={4} /></Form.Item></Col>
                         </Row>
                     </Col>
-                </Row>
+                    <Col xs={24} sm={8} align="middle">
+                        <UploadImage/>                    
+                    </Col>
+                </Row> */}
                         
+
+                <Row align="middle" gutter={[30,10]} style={{padding:'0 15px',fontWeight:'600'}}>  
+                    <Col xs={24} sm={15} >
+                        <Row gutter={[30,10]} > 
+                            <Col xs={24} sm={18} ><Form.Item name="isbn" label="ISBN No" rules={[{ required: true }]} ><Input /></Form.Item></Col>
+                        </Row>
+                        <Row gutter={[30,10]}  >
+                            <Col xs={24} sm={18}><Form.Item name="title" label="Title" rules={[{ required: true }]}><Input/></Form.Item></Col>
+                        </Row>
+                        <Row gutter={[30,10]}  >
+                            <Col xs={24} sm={18}><Form.Item name="auther" label="Auther" rules={[{ required: true }]}><Input/></Form.Item></Col>
+                        </Row>
+                        <Row gutter={[30,10]} > 
+                            <Col xs={24} sm={9}><Form.Item name="type" label="Type" rules={[{ required: true }]}><Input/></Form.Item></Col>
+                            {/* <Col xs={24} sm={9}><Form.Item name="year" label="Year" rules={[{ required: true }]}><Input/></Form.Item></Col> */}
+                        </Row>
+                        <Row gutter={[30,10]}>
+                            <Col xs={24} sm={9}><Form.Item name='location' label="Location" rules={[{ required: true }]}><Input/></Form.Item></Col> 
+                            <Col xs={24} sm={10}><Form.Item name='addedOn' label="Added On"><DatePicker defaultValue={moment()} disabled style={{ width: '180px',height:'30px'}}/></Form.Item></Col>
+                        </Row>
+                        
+                        <Row gutter={[0,0]}>
+                            <Col xs={24} sm={7}><Form.Item name='quantity' label="Quantity" rules={[{ required: true }]}><InputNumber min={0}/></Form.Item></Col>
+                            <Col xs={24} sm={7}><Form.Item name="price" label="Price" rules={[{ required: true }]}><InputNumber min={0}/></Form.Item></Col>
+                            <Col xs={24} sm={7}><Form.Item name="pagecount" label="No of pages" rules={[{ required: true }]}><InputNumber min={0}/></Form.Item></Col>
+                        </Row>
+                        
+                    </Col>
+                    <Col xs={24} sm={9} >
+                        {/* <Row gutter={[30,10]}>
+                             <Col xs={24} sm={24}><UploadImage/> </Col>
+                        </Row> */}
+                        <Row gutter={[30,10]}>
+                            <Col xs={24} sm={24}><Form.Item name='description' label="Description" ><TextArea rows={4} /></Form.Item></Col>
+                        </Row>                
+                    </Col>
+                </Row>
              </Form>
 {/* 
         <Row></Row>
@@ -159,6 +208,9 @@ function ResourcesAddForm(props) {
             </Form.Item>
         </Form>
                       */}
+
+
+         </ConfigProvider>
     </div>
     )
 }
