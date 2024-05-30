@@ -1,10 +1,9 @@
 'use client'
 import { Button, Col, Descriptions, Flex, Image, Row, Spin } from 'antd'
 import Card from 'antd/es/card/Card'
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import EditModal from './EditModal'
-import { HomeOutlined, EditOutlined, DeleteOutlined ,BellOutlined} from '@ant-design/icons';
+import {  EditOutlined,BellOutlined} from '@ant-design/icons';
 import axioinstance from '../../../Instance/api_instance';
 import DeleteModal from './DeleteModal';
 

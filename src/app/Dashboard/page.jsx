@@ -24,11 +24,13 @@ const PageRoot = [
 function page() {
   return (
     <div>
-      
+      {console.log(PageRoot)}
+      {/*<Navigations selectedItem='Dashboard' topic='Dashboard' pageroot={PageRoot}>*/}
 
           <Dashboard />
 
-
+        
+      {/*</Navigations>*/}
     </div>
   )
 }

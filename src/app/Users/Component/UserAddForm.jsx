@@ -1,177 +1,108 @@
-'use client'
-import { Button,
-    Cascader,
-    DatePicker,
-    Form,
-    Input,
-    InputNumber,
-    Mentions,
-    Select,
-    TreeSelect, } from 'antd'
-import FormItem from 'antd/es/form/FormItem'
-import Password from 'antd/es/input/Password'
-import axios from 'axios';
-import React, { useState } from 'react'
+"use client";
+import {
+  Button,
+  Checkbox,
+  DatePicker,
+  Flex,
+  Col,
+  Form,
+  Image,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+  Card,
+} from "antd";
+import FormItem from "antd/es/form/FormItem";
+import Password from "antd/es/input/Password";
+import axios from "axios";
+import React, { useState } from "react";
 
-const { RangePicker } = DatePicker;
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 6,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 14,
-    },
-  },
-};
-const UserAddForm = () => (
-  <Form
-    {...formItemLayout}
-    variant="filled"
-    style={{
-      maxWidth: 600,
-    }}
-  >
-    <Form.Item
-      label="Input"
-      name="Input"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
+function UserAddForm(props) {
+  return (
+    <Form form={props.form} size="small" layout="vertical" name="nest-messages">
+      <div>
+        <Form.Item name="type" label="User Type" required>
+          {" "}
+          <Select
+            defaultValue="patron"
+            onChange={(value) => props.setType(value)}
+            size="medium"
+            options={[
+              {
+                value: "patron",
+                label: "Patron",
+              },
+              {
+                value: "admin",
+                label: "Admin",
+              },
+            ]}
+          ></Select>
+        </Form.Item>
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[{ required: true, type: "email" }]}
+        >
+          <Input size="medium" />
+        </Form.Item>
+      </div>
 
-    <Form.Item
-      label="InputNumber"
-      name="InputNumber"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <InputNumber
-        style={{
-          width: '100%',
-        }}
-      />
-    </Form.Item>
+      <div>
+        <Form.Item
+          name="fname"
+          label="First Name"
+          required
+          rules={[{ required: true}]}
+        >
+          <Input size="medium" />
+        </Form.Item>
+        <Form.Item
+          name="lname"
+          label="Last Name"
+            required
+          rules={[{ required: true}]}
+        >
+          <Input size="medium" />
+        </Form.Item>
+        <Form.Item
+          name="dob"
+          label="Date of Birth"
+          required
+          rules={[{ required: true}]}
+        >
+          <DatePicker size="medium" onChange={(e, s) => props.setDate(s)} />
+        </Form.Item>
+        <Form.Item
+          name="nicno"
+          label="NIC"
+          required
+          rules={[{ required: true}]}
+        >
+          <Input size="medium" />
+        </Form.Item>
+      </div>
+      <div>
+        <Form.Item
+          name="address"
+          label="Address"
+          required
+          rules={[{ required: true}]}
+        >
+          <Input size="medium" />
+        </Form.Item>
+        <Form.Item
+          name="mobile"
+          label="Mobile Number"
+          required
+          rules={[{ required: true}]}
+        >
+          <Input size="medium" />
+        </Form.Item>
+      </div>
+    </Form>
+  );
+}
 
-    <Form.Item
-      label="TextArea"
-      name="TextArea"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <Input.TextArea />
-    </Form.Item>
-
-    <Form.Item
-      label="Mentions"
-      name="Mentions"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <Mentions />
-    </Form.Item>
-
-    <Form.Item
-      label="Select"
-      name="Select"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <Select />
-    </Form.Item>
-
-    <Form.Item
-      label="Cascader"
-      name="Cascader"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <Cascader />
-    </Form.Item>
-
-    <Form.Item
-      label="TreeSelect"
-      name="TreeSelect"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <TreeSelect />
-    </Form.Item>
-
-    <Form.Item
-      label="DatePicker"
-      name="DatePicker"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <DatePicker />
-    </Form.Item>
-
-    <Form.Item
-      label="RangePicker"
-      name="RangePicker"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <RangePicker />
-    </Form.Item>
-
-    <Form.Item
-      wrapperCol={{
-        offset: 6,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
-);
-
-export default UserAddForm
+export default UserAddForm;

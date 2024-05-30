@@ -5,7 +5,7 @@ import ContentBox from '../Component/ContentBox'
 import { HomeOutlined } from '@ant-design/icons';
 import SearchResult from './Components/SearchResult';
 import { Button, FloatButton} from 'antd';
-//import AddResourceModel from './Components/AddResourceModel';
+import AddResourceModel from './Components/AddResourceModel';
 import SearchResources from './Components/SearchResources';
 import {PlusOutlined } from '@ant-design/icons';
 import Link from 'next/link';

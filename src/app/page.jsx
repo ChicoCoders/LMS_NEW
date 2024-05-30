@@ -1,6 +1,11 @@
+import React from "react";
+import Notification from "./Component/Notification";
+
 export default function Home() {
   return (
-    <><h1>My</h1>
+    <>
+    <Notification/>
+    <h1></h1>
     </>
   );
 }
