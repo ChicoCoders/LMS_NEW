@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Checkbox, DatePicker, Radio, Select } from 'antd';
-import { Button, Col, Flex, Input, Row, Space } from 'antd';
+import {  DatePicker, Radio, Select } from 'antd';
+import {Col, Flex, Row, Space } from 'antd';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import Search from 'antd/es/input/Search';
+import { UserContext } from '../../Context/Context';
+
 
 // Extend dayjs with customParseFormat plugin
 dayjs.extend(customParseFormat);
@@ -11,8 +13,11 @@ dayjs.extend(customParseFormat);
 // Destructure RangePicker from DatePicker
 const { RangePicker } = DatePicker;
 
+
 // Define the SearchReservations component
 function SearchReservations({ func1, func2, func3, search }) {
+
+
     // State for placement
     const [placement, setPlacement] = useState("*");
 
@@ -36,7 +41,8 @@ function SearchReservations({ func1, func2, func3, search }) {
     const handleKeywordChange = (e) => {
         func3(e.target.value);
     }
-
+  
+    
     return (
         <div>
             <Row style={{ margin: "0 0 20px 0" }} gutter={[10, 10]}>
@@ -44,15 +50,17 @@ function SearchReservations({ func1, func2, func3, search }) {
                     <Flex wrap='wrap' align='center'>
                         <Radio.Group value={placement} onChange={handlePlacementChange} style={{ margin: ' 0 15px 0 0' }}>
                             <Radio.Button value="*">All</Radio.Button>
-                            <Radio.Button value="due">Due</Radio.Button>
+                            <Radio.Button value="overdue">Due</Radio.Button>
                             <Radio.Button value="borrowed">Borrowed</Radio.Button>
                             <Radio.Button value="reserved">Reserved</Radio.Button>
                         </Radio.Group>
-                        <RangePicker style={{ width: '150px' }} />
+                        <DatePicker style={{ width: '125px' }} />
                     </Flex>
                 </Col>
                 <Col xs={24} sm={10}>
+                <Flex justify='right'>
                     <Space.Compact>
+                        
                         <Select
                             defaultValue="Type"
                             style={{ width: 100 }}
@@ -82,6 +90,7 @@ function SearchReservations({ func1, func2, func3, search }) {
                             onChange={handleKeywordChange}
                         />
                     </Space.Compact>
+                    </Flex>
                 </Col>
             </Row>
         </div>

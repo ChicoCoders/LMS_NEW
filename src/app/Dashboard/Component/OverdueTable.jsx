@@ -1,25 +1,26 @@
 'use client'
 import { Button, Card, Space, Table } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ResultTable from '../../Component/ResultTable'
 import {BellOutlined  } from '@ant-design/icons';
 import Link from 'next/link';
+import axioinstance from '../../Instance/api_instance';
 
 const columns = [
     {
         title: 'Reservation',
-        dataIndex: 'reservationId',
-        key: 'reservationId',
+        dataIndex: 'reservationNo',
+        key: 'reservationNo',
       },
       {
         title: 'Resource',
-        dataIndex: 'resourceId',
-        key: 'resourceId',
+        dataIndex: 'resource',
+        key: 'resource',
       },
     {
       title: 'User',
-      dataIndex: 'userId',
-      key: 'userId',
+      dataIndex: 'borrowerName',
+      key: 'borrowerName',
     },
       {
         title: 'Due Date',
@@ -42,12 +43,27 @@ const columns = [
 
 
 
-function OverdueTable(props) {
+function OverdueTable() {
+  const [reservation, setReservation] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  const GetReservations = async () => {
+    try{
+      const response = await axioinstance.get('Dashboard/getOverDueList');
+      setReservation(response.data);
+    }catch{
+      console.log("Can't fetch data");
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {GetReservations()},[])
+
   return (
     <Card >
     <div >
         <h4>Overdue List</h4>
-        <ResultTable dataset={props.data} columnset={columns} pagination={false}/>
+        <ResultTable loading={loading} dataset={reservation} columnset={columns} pagination={false}/>
     </div>
     </Card>
   )

@@ -7,7 +7,7 @@ import '../page.module.css'
 function MyButton(props) {
   return (
     <div>
-      <Button className='mybtn' block="true"  icon={props.icon} style={{}}>
+      <Button className='mybtn' block  icon={props.icon} style={{}}>
         <div style={{opacity:1}}> {props.children}</div>
         </Button>
     </div>

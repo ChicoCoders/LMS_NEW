@@ -25,8 +25,8 @@ function DeleteModal({reservation}) {
   return (
     <Popconfirm
     onConfirm={()=>deleteReservation(reservation)}
-    title="Delete the task"
-    description="Are you sure to delete this task?"
+    title="Delete the reservation"
+    description="Are you sure to delete this reservation?"
     icon={
       <QuestionCircleOutlined
         style={{

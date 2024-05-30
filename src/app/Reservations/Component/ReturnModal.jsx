@@ -1,5 +1,5 @@
 'use client'
-import { Button, Col, ConfigProvider, Drawer, Flex, Form, Modal, Row } from 'antd'
+import { Button, Col, ConfigProvider, Drawer, Flex, Form, Modal, Row, message } from 'antd'
 import React, { useState } from 'react'
 import ReturnForam from './ReturnForam'
 import Cookies from 'js-cookie';
@@ -13,35 +13,37 @@ function ReturnModal(props) {
     const token = Cookies.get('jwt');
     const [loading, setLoading] = useState(false);
     const[date,setData]=useState("");
-    const [notification, setNotification] = useState(true);
+    const [email, setEmail] = useState(true);
     const [form] = Form.useForm();
+    const [messageApi, contextHolder] = message.useMessage();
 
+
+    const successModal = () => {
+      messageApi.open({
+        type: 'success',
+        content: 'Book issued successfully',
+      });
+    };
+    const errorModal = (e) => {
+      messageApi.open({
+        type: 'error',
+        content: e,
+      });
+    };
     
 
-    const showSuccessModal = () => {
-        Modal.success({
-            title: 'Success',
-            content: 'Successfully Return the Resource',
-        });
-    };
-
-    const errorModal = (p) => {
-        Modal.error({
-            title: 'Issue Book Unseccessfull',
-            content: p,
-        });
-    };
+    
 
     async function fetchData() { // Function to fetch data from server'        
         // Sending POST request to fetch data based on search parameters
         
-        console.log(notification);
+       
         await axioinstance.post("Reservation/Returnbook",{
                 reservationNo: props.recordData.reservationNo,
                 returnDate: date,
                 returnby: String(form.getFieldValue('returnid')),
                 penalty: 0,
-                notification:notification
+                email:email
             }
         )
             .then(response => {
@@ -50,7 +52,7 @@ function ReturnModal(props) {
                 setTimeout(() => {
                     setLoading(false);
                     // fetchData(form);
-                    showSuccessModal();
+                    successModal();
                     props.close();
                     form.resetFields();
                     props.fetchData(props.type);
@@ -60,7 +62,7 @@ function ReturnModal(props) {
             .catch(error => {
                 setLoading(false);
                 console.log(error);
-                errorModal("saf");
+                errorModal(String(error.response.data).split('\n')[0]);
                // errorModal(String(error.response.data).split('\n')[0]);
                 
             });
@@ -91,7 +93,7 @@ function ReturnModal(props) {
     return (
         <div>
             
-   
+            {contextHolder}
             <Drawer
                 mask={true}
                 maskClosable={false}
@@ -101,7 +103,7 @@ function ReturnModal(props) {
 
                 open={props.open}
                 
-                title={<Flex  justify='space-between'>Return{props.recordData.status == 'borrowed' ? (<Button style={{ margin: '0 0 0 20px' }} shape='round'  size='small' danger>OverDue</Button>) : null}</Flex>}
+                title={<Flex  justify='space-between'>Return{props.recordData.status == 'overdue' ? (<Button style={{ margin: '0 0 0 20px' }} shape='round'  size='small' danger>OverDue</Button>) : null}</Flex>}
                 onOk={handleOk}
                 onClose={handleCancel}
                 footer={[
@@ -116,7 +118,7 @@ function ReturnModal(props) {
                 ]}
 
             >
-                <ReturnForam form1={form} data1={props.recordData} date={setData} setNotification={setNotification} notification={notification}/>
+                <ReturnForam form1={form} data1={props.recordData} date={setData} setEmail={setEmail} email={email}/>
             </Drawer>
            
         </div>

@@ -33,9 +33,9 @@ const PageRoot = [
 function page() {
   return (
     <div>
-       <Navigations selectedItem="User" topic="About User"  pageroot={PageRoot}>
+    
        <AboutCard/>
-        </Navigations>
+
     </div>
   )
 }
