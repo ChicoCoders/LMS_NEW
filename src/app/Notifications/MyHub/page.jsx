@@ -24,7 +24,8 @@ const Chat = ({children}) => {
         duration:0
     });
   };
-    
+
+
     
     useEffect(() => {
       const connect = new HubConnectionBuilder()
