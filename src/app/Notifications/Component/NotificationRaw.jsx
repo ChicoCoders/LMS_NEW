@@ -44,12 +44,12 @@ return(
 
              {/*Display the description*/}
             <Row  style={{ marginBottom: '20px' }}>
-                <Col span={8} >{description}</Col>
+                <Col span={20} >{description}</Col>
 
             </Row>
 
             <Row  style={{ marginBottom: '10px' }}>
-                <Col span={8} offset={21}>
+                <Col span={8}  >
 
                     <Popconfirm
                         title="Remove the Notification"
@@ -59,10 +59,11 @@ return(
                         onConfirm={() => handleRemove(id)}//call handleRemove function to remove the notification
                     >
                         <Button
-                            danger
+
                             type='primary'
                             style={{
                                 boxShadow: '0 4px 8px 0 rgba(0,0,0,0.15)',
+                                backgroundColor: '#4da0ff',
                             }}
 
                         >

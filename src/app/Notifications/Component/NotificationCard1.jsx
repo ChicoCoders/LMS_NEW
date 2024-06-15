@@ -84,7 +84,7 @@ function NotificationCard1() {
         <Flex gap="small" wrap="wrap" justify="space-between">
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '23%' }}>
 
-                <AddNotifications style={{ width: '150px' }}  fetchData={fetchData} />{/*} Add notification component*/}
+                <AddNotifications style={{ width: '150px' }}  fetchData={fetchData} />{/* Add notification component*/}
                 <RemindNotification1 style={{ width: '150px' }} /> {/*Remind notification component*/}
                 <UpdateNotification1 style={{ width: '150px' }} />  {/*Update notification component*/}
             </div>

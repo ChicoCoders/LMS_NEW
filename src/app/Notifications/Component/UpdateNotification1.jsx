@@ -28,6 +28,7 @@ const UpdateNotification1 = () => {
             <Button type="primary" onClick={showModal} style={{ marginRight: '10px', width: '150px', backgroundColor: '#001628', color: '#ffff', }}>
                 Updates
             </Button>
+            {/* Modal to update notification */}
             <Modal
                 title="Update Notification"
                 visible={visible}
@@ -35,6 +36,7 @@ const UpdateNotification1 = () => {
                 footer={null} // Hide the default footer buttons
 
             >
+                {/* Form inside the modal */}
                 <Form
                     layout="vertical"
                     form={form}
@@ -43,12 +45,13 @@ const UpdateNotification1 = () => {
                     onFinish={onFinish}
 
                 >
+                    {/* Switch component with a label */}
                     <Form.Item label="Switch" valuePropName="checked">
                         <Switch />
                     </Form.Item>
 
 
-
+                    {/* Checkbox group for selecting notification preferences */}
                     <Form.Item>
                         <Checkbox.Group style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Checkbox value="A">New Books</Checkbox>
@@ -61,7 +64,7 @@ const UpdateNotification1 = () => {
 
 
 
-
+                    {/* Description input field */}
                     <Form.Item label="Description" name="Description">
                         <Input.TextArea rows={4} placeholder="Enter Description" />
                     </Form.Item>
@@ -73,7 +76,7 @@ const UpdateNotification1 = () => {
 
 
 
-
+                    {/* Submit button for the form */}
                     <Form.Item style={{ textAlign: 'right' }}>
                         <Button type="primary" htmlType="submit">
                             Send

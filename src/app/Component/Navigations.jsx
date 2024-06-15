@@ -348,7 +348,14 @@ function Navigations(props) {
                   </Flex>
                   <Divider />
                   <Flex a vertical style={{ margin: "10px 0 0 0 " }}>
-                    <MyHub>{props.children}</MyHub>
+
+
+                    <MyHub>
+                      {props.children}
+                    </MyHub>
+
+
+
                   </Flex>
                 </Card>
               </Content>

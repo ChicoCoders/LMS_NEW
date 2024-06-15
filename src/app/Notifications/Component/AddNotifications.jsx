@@ -12,7 +12,7 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
   const [messages, setMessages] = useState([]);//usestate for message
    
     const [connection, setConnection] = useState(null);////usestate for connection
-    const user=React.useContext(UserContext).user;//
+    const user=React.useContext(UserContext).user;//identify user from Context
     
     useEffect(() => {//useeffect for connection
       const connect = new HubConnectionBuilder()//connection builder
@@ -20,8 +20,8 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
         .withUrl("http://localhost:5164/Hubs/MyHub")
         .withAutomaticReconnect()//automatic reconnect
         .configureLogging(LogLevel.Information)
-        .build();
-      setConnection(connect);
+        .build();//build connection
+      setConnection(connect);//Connect to the socket
       connect
         .start()
         .then(() => {
@@ -29,9 +29,9 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
           connect.on("ReceiveMessage", (sender, content, sentTime) => {
             setMessages((prev) => [...prev, { sender, content, sentTime }]);
           });
-          connection.invoke("JoinRoom","all");
-          connection.invoke("JoinRoom",user.userName);
-          connection.invoke("JoinRoom",user.userType);
+          connection.invoke("JoinRoom","all");//join room of all users
+          connection.invoke("JoinRoom",user.userName);//join own room
+          connection.invoke("JoinRoom",user.userType);//join room of user type
           connect.invoke("RetrieveMessageHistory");
         })
         .catch((err) =>
@@ -50,7 +50,7 @@ const AddNotification = ({ fetchData }) => {const [visible, setVisible] = useSta
     // Function to send a message
     const sendMessage = async () => {
       if (connection) {
-        await connection.send("SendMessage", 
+        await connection.send("SendMessage", //if choose other call  backend myHub sendMassage function to userID
         {userName :respient==="other"?form.getFieldValue('userId'):respient,
         subject : "New Announcement",
         description:form.getFieldValue('description') });

@@ -82,7 +82,7 @@ const Chat = ({children}) => {
     },[messages])
 
     return (
-
+    
       <div>
         {contextHolder}
       {children}

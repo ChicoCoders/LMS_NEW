@@ -9,14 +9,13 @@ function NotificationDrawer({setOpen,open}) {
     const [all,setAll]=useState(false);
     const GetNotification = async()=>{
      
-        //etLoading(true); // Set loading to true while fetching
+        setLoading(true); // Set loading to true while fetching
         try {
             // Sending POST request to fetch data based on search parameters
-            const response = await axioinstance.get('Notification/GetNotificatons?username=shaeni');
+            const response = await axioinstance.get('Notification/GetNotificatons?username=shaeni')//call to backend api
             const data = response.data.reverse(); // Extracting data from response
             //setLoading(false); // Setting loading to false after data is fetched
             setNotifications(data); // Updating items state with fetched data
-            console.log(data);
         } catch (error) {
             // setLoading(false); // Setting loading to false if there's an error
             console.log('Error fetching data:', error); // Logging error to console
@@ -36,8 +35,8 @@ function NotificationDrawer({setOpen,open}) {
                 title={<Flex>Notifications</Flex>}
                 open={open}
                 onClose={()=>setOpen(false)} 
-                footer={notifications.length>5?<Button block onClick={()=>setAll(!all)}>{all==false?"Show All":"Show Less"}</Button>:null}
-                
+                footer={notifications.length>5?<Button block onClick={()=>setAll(!all)}> {all==false?"Show All":"Show Less"} </Button>:null}
+                //when click on show all button it will show all the notifications
             >
                 <div style={{overflowX:"hidden"}}>
               <Spin spinning={loading}>
@@ -52,6 +51,7 @@ function NotificationDrawer({setOpen,open}) {
                 </>
                 
                 ):
+                    // slice the notification list from 0 index to 4 th
                 notifications.splice(0,4).map((notification)=>
             
 <>
